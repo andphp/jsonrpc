@@ -82,6 +82,30 @@ return [
             ],
         ],
 ```
+###定义服务提供者
+设置RpcService的注解protocol属性为jsonrpc-bl
+```php
+<?php
+
+namespace App\JsonRpc;
+
+use Hyperf\RpcServer\Annotation\RpcService;
+
+/**
+ * 
+ * @RpcService(name="CalculatorService", protocol="jsonrpc-bl", server="jsonrpc-http")
+ */
+class CalculatorService implements CalculatorServiceInterface
+{
+    // 实现一个加法方法，这里简单的认为参数都是 int 类型
+    public function add(int $a, int $b): int
+    {
+        // 这里是服务方法的具体实现
+        return $a + $b;
+    }
+}
+```
+
 ###新增事件
 新增文件RpcProtocolListener.php到app/Listener文件夹
 ```php
