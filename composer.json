@@ -1,0 +1,25 @@
+{
+    "name": "bl/jsonrpc",
+    "description": "ppgolang jsonrpcpp",
+    "type": "library",
+    "require": {
+        "hyperf/rpc": "~2.1.0",
+        "hyperf/json-rpc": "~2.1.0",
+        "hyperf/rpc-server": "~2.1.0",
+        "hyperf/rpc-client": "~2.1.0",
+        "php": ">=7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bl\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "qh",
+            "email": "583128870@qq.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
