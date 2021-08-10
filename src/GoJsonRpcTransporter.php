@@ -72,9 +72,13 @@ class GoJsonRpcTransporter implements TransporterInterface
             return $client;
         });
         $json_response = $this->recvAndCheck($client, $this->recvTimeout);
-        $responseList = json_decode($json_response,true);
-        if($responseList['error']){
-            $error = json_decode($responseList['error'],true);
+        $responseList = json_decode($json_response, true);
+        if ($responseList['error']) {
+            if (isset($responseList['jsonrpc'])) {
+                $error = json_decode($responseList['error'], true);
+            } else {
+                throw new RequestException($responseList['error'] ?? '', 0, []);
+            }
             throw new RequestException($error['message'] ?? '', $error['code'], []);
         }
         return $json_response;
