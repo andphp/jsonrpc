@@ -1,7 +1,9 @@
 # hyperf rpc与go的 josnrpc库通讯
+
 ##兼容hyperf框架的之间jsonrpc通讯 以及与golang的jsonrpc库通讯
 
 ##若rpc服务端为golang
+
 config/autoload/servers.php配置文件修改
 1. 协议配置项 protocol为jsonrpc-bl
 2. 分包规则package_eof 为 \n
@@ -59,7 +61,10 @@ return [
     ],
 ];
 ```
+
+
 ##若hyperf框架服务端 需兼容 hypef框架rpc客户端和golang的rpc客户端请求
+
 需修改服务端config/autoload/server.php配置文件修改项
 1. 分包规则package_eof修改为  \n
 2. callback数组修改为[
