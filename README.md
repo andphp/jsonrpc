@@ -1,8 +1,8 @@
 # hyperf rpc与go的 josnrpc库通讯
 ###兼容hyperf框架的之间jsonrpc通讯 以及与golang的jsonrpc库通讯
 
-###config/autoload/servers.php配置文件修改
-
+###若rpc服务端为golang
+config/autoload/servers.php配置文件修改
 1. 协议配置项 protocol为jsonrpc-bl
 2. 分包规则package_eof 为 \n
 ```php
@@ -59,11 +59,13 @@ return [
     ],
 ];
 ```
-###服务端config/autoload/server.php配置文件修改项
+###若hyperf框架服务端 需兼容 hypef框架rpc客户端和golang的rpc客户端请求
+需修改服务端config/autoload/server.php配置文件修改项
 1. 分包规则package_eof修改为  \n
 2. callback数组修改为[
                                 \Hyperf\Server\Event::ON_RECEIVE => [\Bl\BlTcpServer::class, 'onReceive'],
                             ]
+3. 设置服务提供者的@RpcService的注解protocol属性为jsonrpc-bl                            
 
 ```php
         [
@@ -82,8 +84,7 @@ return [
             ],
         ],
 ```
-###定义服务提供者
-设置RpcService的注解protocol属性为jsonrpc-bl
+
 ```php
 <?php
 
@@ -106,8 +107,9 @@ class CalculatorService implements CalculatorServiceInterface
 }
 ```
 
-###新增事件
-新增文件RpcProtocolListener.php到app/Listener文件夹
+## 凡是代码需要使用jsonrpc-bl通讯协议的 
+1. 需新增事件 新增文件RpcProtocolListener.php到app/Listener文件夹
+2. 通过配置文件注册监听器,修改config/autoload/listeners.php 配置文件
 ```php
 <?php
 
@@ -167,8 +169,7 @@ class RpcProtocolListener implements ListenerInterface
 }
 
 ```
-###通过配置文件注册监听器
-修改config/autoload/listeners.php 配置文件
+
 ```php
 <?php
 
