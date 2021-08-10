@@ -27,6 +27,11 @@ class GoDataFormatter implements DataFormatterInterface
         $this->context = $context;
     }
 
+    /**
+     * 格式化请求
+     * @param array $data
+     * @return array
+     */
     public function formatRequest($data)
     {
         [
@@ -48,21 +53,36 @@ class GoDataFormatter implements DataFormatterInterface
         ];
     }
 
+    /**
+     * 格式化正常响应
+     * @param array $data
+     * @return array
+     */
     public function formatResponse($data)
     {
         [
             $id,
-            $result
+            $result,
+            $protocol_type
         ] = $data;
-        return [
-            'jsonrpc' => '2.0',
-            'id'      => $id,
-            'result'  => $result,
-            'error'   => null,
-            'context' => $this->context->getData(),
+        $response_data = [
+            'id'            => $id,
+            'result'        => $result,
+            'error'         => null,
+            'context'       => $this->context->getData(),
+            'protocol_type' => $protocol_type
         ];
+        if ($protocol_type == "hyperf-json-rpc") {
+            $response_data['jsonrpc'] = '2.0';
+        }
+        return $response_data;
     }
 
+    /**
+     * 格式异常响应
+     * @param array $data
+     * @return array
+     */
     public function formatErrorResponse($data)
     {
 
@@ -80,26 +100,22 @@ class GoDataFormatter implements DataFormatterInterface
                 'message' => $data->getMessage(),
             ];
         }
-        if ($protocol_type == "jsonrpc-bl") {
-            return [
-                'jsonrpc' => '2.0',
-                'id'      => $id ?? null,
-                'error'   => "code:{$code} message:{$message}",
-                "result"  => $data,
-                'context' => $this->context->getData(),
+        $resopnse = [
+            'id'            => $id ?? null,
+            'context'       => $this->context->getData(),
+            'protocol_type' => $protocol_type
+        ];
+        if ($protocol_type == "hyperf-json-rpc") {
+            $resopnse['jsonrpc'] = '2.0';
+            $resopnse['error'] = [
+                'code'    => $code,
+                'message' => $message,
+                'data'    => $data,
             ];
         } else {
-            return [
-                'jsonrpc' => '2.0',
-                'id'      => $id ?? null,
-                'error'   => [
-                    'code'    => $code,
-                    'message' => $message,
-                    'data'    => $data,
-                ],
-                'context' => $this->context->getData(),
-            ];
+            $resopnse['error'] = "code:{$code} message:{$message}";
+            $resopnse['result'] = $data;
         }
-
+        return $resopnse;
     }
 }

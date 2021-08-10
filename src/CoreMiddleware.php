@@ -51,8 +51,11 @@ class CoreMiddleware extends \Hyperf\RpcServer\CoreMiddleware
 
             try {
                 $response = $controllerInstance->{$action}(...$parameters);
+                var_dump("响应");
+//                var_dump($response);
             } catch (\Throwable $exception) {
                 $response = $this->responseBuilder->buildErrorResponse($request, ResponseBuilder::SERVER_ERROR, $exception);
+//                var_dump($response);
                 $this->responseBuilder->persistToContext($response);
 
                 throw $exception;

@@ -126,21 +126,12 @@ class BlTcpServer extends Server
 
     protected function buildJsonRpcRequest(int $fd, int $reactorId, array $data)
     {
-
+        $protocol_type = "hyperf-json-rpc";
+        if(!isset($data['jsonrpc'])){
+            $protocol_type = "go-json-rpc";
+        }
         if (! isset($data['method'])) {
             $data['method'] = '';
-        }else{
-            if (strpos($data['method'], '.')) { //兼容go jsonrpc协议
-                $class_method_list = explode(".", $data['method']);
-                $method = "";
-                foreach ($class_method_list as $value) {
-                    $method .= '/' . strtolower(preg_replace('/(?<=[a-z])([A-Z])/', '_$1', $value));
-                }
-                $data['method'] = $method;
-                if (isset($data['params'][0])) {
-                    $data['params'] = array_values($data['params'][0]);
-                }
-            }
         }
         if (! isset($data['params'])) {
             $data['params'] = [];
@@ -152,7 +143,7 @@ class BlTcpServer extends Server
             ->withAttribute('fromId', $reactorId)
             ->withAttribute('data', $data)
             ->withAttribute('request_id', $data['id'] ?? null)
-            ->withAttribute("protocol_type",$this->serverName)
+            ->withAttribute("protocol_type",$protocol_type)
             ->withParsedBody($data['params'] ?? '');
 
         $this->getContext()->setData($data['context'] ?? []);

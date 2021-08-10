@@ -21,6 +21,10 @@ class GoJsonEofPacker implements PackerInterface
      */
     protected $eof;
 
+    protected $eof_list = [
+        'hyperf-json-rpc'=>"\r\n",
+        'go-json-rpc'=>"\n",
+    ];
     public function __construct(array $options = [])
     {
         $this->eof = $options['settings']['package_eof'] ?? "\r\n";
@@ -28,17 +32,20 @@ class GoJsonEofPacker implements PackerInterface
 
     public function pack($data): string
     {
+
+        if(isset($data['protocol_type']) && isset($this->eof_list[$data['protocol_type']])){
+            $eof = $this->eof_list[$data['protocol_type']];
+        }else{
+            $eof =   $this->eof;
+        }
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        return $data . $this->eof;
+        return $data .$eof;
     }
 
     public function unpack(string $data)
     {
         $data = rtrim($data, $this->eof);
         $data = json_decode($data, true);
-        if (!isset($data['jsonrpc'])) {
-            $data['jsonrpc'] = "2.0";
-        }
         if (isset($data['method']) && strpos($data['method'], '.')) { //兼容go jsonrpc协议
             $class_method_list = explode(".", $data['method']);
             $method = "";

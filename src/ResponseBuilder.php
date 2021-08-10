@@ -73,14 +73,14 @@ class ResponseBuilder
 
     protected function formatResponse($response, ServerRequestInterface $request): string
     {
-        $response = $this->dataFormatter->formatResponse([$request->getAttribute('request_id'), $response]);
+        $response = $this->dataFormatter->formatResponse([$request->getAttribute('request_id'), $response,$request->getAttribute('protocol_type')]);
         return $this->packer->pack($response);
     }
 
     protected function formatErrorResponse(ServerRequestInterface $request, int $code, \Throwable $error = null): string
     {
         [$code, $message] = $this->error($code, $error ? $error->getMessage() : null);
-        $response = $this->dataFormatter->formatErrorResponse([$request->getAttribute('request_id'), $code, $message, $error,$this->protocol->getName()]);
+        $response = $this->dataFormatter->formatErrorResponse([$request->getAttribute('request_id'), $code, $message, $error,$request->getAttribute('protocol_type')]);
         return $this->packer->pack($response);
     }
 
