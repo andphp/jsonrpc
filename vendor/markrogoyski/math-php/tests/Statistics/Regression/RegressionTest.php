@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Statistics\Regression;
 
 use MathPHP\Statistics\Regression\Linear;
@@ -6,19 +7,22 @@ use MathPHP\Statistics\Regression\Linear;
 class RegressionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     correlationCoefficient
+     * @test         correlationCoefficient
      * @dataProvider dataProviderForR
      * @param        array $points
      * @param        float $r
      */
     public function testCorrelationCoefficient(array $points, float $r)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($r, $regression->correlationCoefficient(), '', 0.001);
+
+        // Then
+        $this->assertEqualsWithDelta($r, $regression->correlationCoefficient(), 0.001);
     }
 
     /**
-     * @testCase     r
+     * @test         r
      * @dataProvider dataProviderForR
      * @param        array $points
      * @param        float $r
@@ -26,7 +30,7 @@ class RegressionTest extends \PHPUnit\Framework\TestCase
     public function testR(array $points, float $r)
     {
         $regression = new Linear($points);
-        $this->assertEquals($r, $regression->r($points), '', 0.001);
+        $this->assertEqualsWithDelta($r, $regression->r($points), 0.001);
     }
 
     /**
@@ -47,27 +51,33 @@ class RegressionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     coefficientOfDetermination
+     * @test         coefficientOfDetermination
      * @dataProvider dataProviderForR2
      * @param        array $points
      * @param        float $r2
      */
     public function testCoefficientOfDetermination(array $points, float $r2)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($r2, $regression->coefficientOfDetermination($points), '', 0.001);
+
+        // Then
+        $this->assertEqualsWithDelta($r2, $regression->coefficientOfDetermination($points), 0.001);
     }
 
     /**
-     * @testCase     r2
+     * @test         r2
      * @dataProvider dataProviderForR2
      * @param        array $points
      * @param        float $r2
      */
     public function testR2(array $points, float $r2)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($r2, $regression->r2($points), '', 0.001);
+
+        // Then
+        $this->assertEqualsWithDelta($r2, $regression->r2($points), 0.001);
     }
 
     /**
@@ -88,24 +98,30 @@ class RegressionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase toString
+     * @test toString
      */
     public function testToString()
     {
+        // Given
         $regression = new Linear([[1,2],[3,3],[3,4],[4,6]]);
-        $this->assertTrue(is_string($regression->__toString()));
+
+        // Then
+        $this->assertTrue(\is_string($regression->__toString()));
     }
 
     /**
-     * @testCase     sumOfSquaresTotal
+     * @test         sumOfSquaresTotal
      * @dataProvider dataProviderForSumOfSquaresTotal
      * @param        array $points
      * @param        float $SUStot
      */
     public function testSumOfSquaresTotal(array $points, float $SUStot)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($SUStot, $regression->sumOfSquaresTotal(), '', 0.0001);
+
+        // Then
+        $this->assertEqualsWithDelta($SUStot, $regression->sumOfSquaresTotal(), 0.0001);
     }
 
     /**
@@ -120,15 +136,18 @@ class RegressionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     yHat
+     * @test         yHat
      * @dataProvider dataProviderForYHat()
      * @param        array $points
      * @param        array $yhat
      */
     public function testYHat(array $points, array $yhat)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($yhat, $regression->yHat(), '', 0.01);
+
+        // Then
+        $this->assertEqualsWithDelta($yhat, $regression->yHat(), 0.01);
     }
 
     /**
@@ -150,15 +169,18 @@ class RegressionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     sumOfSquaresRegression
+     * @test         sumOfSquaresRegression
      * @dataProvider dataProviderForSumOfSquaresRegression
      * @param        array $points
      * @param        float $SSreg
      */
     public function testSumOfSquaresRegression(array $points, float $SSreg)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($SSreg, $regression->sumOfSquaresRegression(), '', 0.00001);
+
+        // Then
+        $this->assertEqualsWithDelta($SSreg, $regression->sumOfSquaresRegression(), 0.00001);
     }
 
     /**
@@ -179,15 +201,18 @@ class RegressionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     sumOfSquaresResidual
+     * @test         sumOfSquaresResidual
      * @dataProvider dataProviderForSumOfSquaresResidual
      * @param        array $points
      * @param        float $SSres
      */
     public function testSumOfSquareResidual(array $points, float $SSres)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($SSres, $regression->sumOfSquaresResidual(), '', 0.00001);
+
+        // Then
+        $this->assertEqualsWithDelta($SSres, $regression->sumOfSquaresResidual(), 0.00001);
     }
 
     /**
@@ -208,18 +233,23 @@ class RegressionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     The sum of squares of Y equals the sum of squares regression plus the sum of squares of error (residual)
+     * @test         The sum of squares of Y equals the sum of squares regression plus the sum of squares of error (residual)
      *               SStotal = SSreg + SSres
      * @dataProvider dataProviderForSumOfSquaresEqualsSumOfSQuaresRegressionPlusSumOfSquaresResidual
      * @param        array $points
      */
     public function testSumOfSquaresEqualsSumOfSQuaresRegressionPlusSumOfSquaresResidual(array $points)
     {
+        // Given
         $regression = new Linear($points);
+
+        // Wheb
         $SStot      = $regression->sumOfSquaresTotal();
         $SSreg      = $regression->sumOfSquaresRegression();
         $SSres      = $regression->sumOfSquaresResidual();
-        $this->assertEquals($SStot, $SSreg + $SSres, '', 0.001);
+
+        // Then
+        $this->assertEqualsWithDelta($SStot, $SSreg + $SSres, 0.001);
     }
 
     /**

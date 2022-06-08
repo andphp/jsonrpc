@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Statistics\Regression\Models;
 
 trait PowerModel
@@ -8,7 +9,7 @@ trait PowerModel
 
     /** @var int a parameter index */
     protected static $A = 0;
-    
+
    /**
     * Evaluate the power curve equation from power law regression parameters for a value of x
     * y = axᵇ
@@ -23,7 +24,7 @@ trait PowerModel
         $a = $params[self::$A];
         $b = $params[self::$B];
 
-        return $a * $x**$b;
+        return $a * $x ** $b;
     }
 
     /**
@@ -33,7 +34,7 @@ trait PowerModel
      *
      * @return array [ a => number, b => number ]
      */
-    public static function getModelParameters(array $params): array
+    public function getModelParameters(array $params): array
     {
         return [
             'a' => $params[self::$A],
@@ -48,8 +49,8 @@ trait PowerModel
      *
      * @return string
      */
-    public static function getModelEquation(array $params): string
+    public function getModelEquation(array $params): string
     {
-        return sprintf('y = %fx^%f', $params[self::$A], $params[self::$B]);
+        return \sprintf('y = %fx^%f', $params[self::$A], $params[self::$B]);
     }
 }

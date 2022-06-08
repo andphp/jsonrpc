@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Probability\Distribution\Discrete;
 
 use MathPHP\Functions\Support;
@@ -15,7 +16,7 @@ class Bernoulli extends Discrete
      * p ∈ (0,1)
      * @var array
      */
-    const PARAMETER_LIMITS = [
+    public const PARAMETER_LIMITS = [
         'p' => '(0,1)',
         'q' => '[0,1)',
     ];
@@ -26,7 +27,7 @@ class Bernoulli extends Discrete
      * p ∈ (0,1)
      * @var array
      */
-    const SUPPORT_LIMITS = [
+    public const SUPPORT_LIMITS = [
         'k' => '[0,1]',
     ];
 

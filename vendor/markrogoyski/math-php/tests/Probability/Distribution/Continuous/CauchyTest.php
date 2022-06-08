@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Continuous;
 
 use MathPHP\Probability\Distribution\Continuous\Cauchy;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Continuous\Cauchy;
 class CauchyTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pdf
+     * @test         pdf
      * @dataProvider dataProviderForPdf
      * @param        float $x
      * @param        float $x₀
@@ -22,7 +23,7 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
         $pdf = $cauchy->pdf($x);
 
         // Then
-        $this->assertEquals($expected_pdf, $pdf, '', 0.000000001);
+        $this->assertEqualsWithDelta($expected_pdf, $pdf, 0.000000001);
     }
 
     /**
@@ -64,7 +65,7 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        float $x
      * @param        float $x₀
@@ -80,11 +81,11 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
         $cdf = $cauchy->cdf($x);
 
         // Then
-        $this->assertEquals($expected_cdf, $cdf, '', 0.000000001);
+        $this->assertEqualsWithDelta($expected_cdf, $cdf, 0.000000001);
     }
 
     /**
-     * @testCase     inverse of CDF is original support x
+     * @test         inverse of CDF is original support x
      * @dataProvider dataProviderForCdf
      * @param        float $x
      * @param        float $x₀
@@ -100,7 +101,7 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
         $inverse_of_cdf = $cauchy->inverse($cdf);
 
         // Then
-        $this->assertEquals($x, $inverse_of_cdf, '', 0.000000001);
+        $this->assertEqualsWithDelta($x, $inverse_of_cdf, 0.000000001);
     }
 
     /**
@@ -157,7 +158,7 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
         $inverse = $cauchy->inverse($p);
 
         // Then
-        $this->assertEquals($expected_inverse, $inverse, '', 0.000001);
+        $this->assertEqualsWithDelta($expected_inverse, $inverse, 0.000001);
     }
 
     /**
@@ -182,7 +183,7 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean is not a number
+     * @test         mean is not a number
      * @dataProvider dataProviderForAverages
      * @param        float $x₀
      * @param        float $γ
@@ -200,7 +201,7 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     median is $x₀
+     * @test         median is $x₀
      * @dataProvider dataProviderForAverages
      * @param        float $x₀
      * @param        float $γ
@@ -218,7 +219,7 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode is $x₀
+     * @test         mode is $x₀
      * @dataProvider dataProviderForAverages
      * @param        float $x₀
      * @param        float $γ
@@ -236,7 +237,7 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance is not a number
+     * @test         variance is not a number
      * @dataProvider dataProviderForAverages
      * @param        float $x₀
      * @param        float $γ
@@ -274,20 +275,20 @@ class CauchyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase rand
+     * @test rand
      */
     public function testRand()
     {
-        foreach (range(-5, 5) as $x₀) {
-            foreach (range(1, 10) as $γ) {
+        foreach (\range(-5, 5) as $x₀) {
+            foreach (\range(1, 10) as $γ) {
                 // Given
                 $cauchy = new Cauchy($x₀, $γ);
-                foreach (range(1, 3) as $_) {
+                foreach (\range(1, 3) as $_) {
                     // When
                     $random = $cauchy->rand();
 
                     // Then
-                    $this->assertTrue(is_numeric($random));
+                    $this->assertTrue(\is_numeric($random));
                 }
             }
         }

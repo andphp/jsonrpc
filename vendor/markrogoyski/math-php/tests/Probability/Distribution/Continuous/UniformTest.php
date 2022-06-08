@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Continuous;
 
 use MathPHP\Exception\OutOfBoundsException;
@@ -7,7 +8,7 @@ use MathPHP\Probability\Distribution\Continuous\Uniform;
 class UniformTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     constructor exception b < a
+     * @test         constructor exception b < a
      * @dataProvider dataProviderForOutOfBoundsParameters
      * @param        float $a
      * @param        float $b
@@ -36,7 +37,7 @@ class UniformTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     pdf
+     * @test         pdf
      * @dataProvider dataProviderForPdf
      * @param        float $a
      * @param        float $b
@@ -53,7 +54,7 @@ class UniformTest extends \PHPUnit\Framework\TestCase
         $pdf = $uniform->pdf($x);
 
         // Then
-        $this->assertEquals($expected, $pdf, '', 0.001);
+        $this->assertEqualsWithDelta($expected, $pdf, 0.001);
     }
 
     /**
@@ -85,7 +86,7 @@ class UniformTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        float $a
      * @param        float $b
@@ -102,7 +103,7 @@ class UniformTest extends \PHPUnit\Framework\TestCase
         $cdf = $uniform->cdf($x);
 
         // Then
-        $this->assertEquals($expected, $cdf, '', 0.001);
+        $this->assertEqualsWithDelta($expected, $cdf, 0.001);
     }
 
     /**
@@ -134,7 +135,7 @@ class UniformTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        float $a
      * @param        float $b
@@ -150,11 +151,11 @@ class UniformTest extends \PHPUnit\Framework\TestCase
         $mean = $uniform->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.00001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.00001);
     }
 
     /**
-     * @testCase     median
+     * @test         median
      * @dataProvider dataProviderForMean
      * @param        float $a
      * @param        float $b
@@ -170,11 +171,11 @@ class UniformTest extends \PHPUnit\Framework\TestCase
         $median = $uniform->median();
 
         // Then
-        $this->assertEquals($μ, $median, '', 0.00001);
+        $this->assertEqualsWithDelta($μ, $median, 0.00001);
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMean
      * @param        float $a
      * @param        float $b
@@ -202,14 +203,14 @@ class UniformTest extends \PHPUnit\Framework\TestCase
             [0, 1, 0.5],
             [0, 2, 1],
             [1, 2, 1.5],
-            [2, 3, 5/2],
+            [2, 3, 5 / 2],
             [2, 4, 3],
             [5, 11, 8],
         ];
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        float $a
      * @param        float $b
@@ -225,7 +226,7 @@ class UniformTest extends \PHPUnit\Framework\TestCase
         $variance = $uniform->variance();
 
         // Then
-        $this->assertEquals($expected, $variance, '', 0.00001);
+        $this->assertEqualsWithDelta($expected, $variance, 0.00001);
     }
 
     /**
@@ -234,11 +235,11 @@ class UniformTest extends \PHPUnit\Framework\TestCase
     public function dataProviderForVariance(): array
     {
         return [
-            [0, 1, 1/12],
-            [0, 2, 4/12],
-            [1, 2, 1/12],
-            [2, 3, 1/12],
-            [2, 4, 4/12],
+            [0, 1, 1 / 12],
+            [0, 2, 4 / 12],
+            [1, 2, 1 / 12],
+            [2, 3, 1 / 12],
+            [2, 4, 4 / 12],
             [5, 11, 3],
         ];
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Discrete;
 
 use MathPHP\Probability\Distribution\Discrete\Poisson;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Discrete\Poisson;
 class PoissonTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pmf
+     * @test         pmf
      * @dataProvider dataProviderForPmf
      * @param        int $k
      * @param        float $λ
@@ -21,7 +22,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
         $pmf = $poisson->pmf($k);
 
         // Then
-        $this->assertEquals($expectedPmf, $pmf, '', 0.001);
+        $this->assertEqualsWithDelta($expectedPmf, $pmf, 0.001);
     }
 
     /**
@@ -39,7 +40,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        int $k
      * @param        float $λ
@@ -54,7 +55,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
         $cdf = $poisson->cdf($k);
 
         // Then
-        $this->assertEquals($expectedCdf, $cdf, '', 0.001);
+        $this->assertEqualsWithDelta($expectedCdf, $cdf, 0.001);
     }
 
     /**
@@ -72,7 +73,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        float $λ
      * @param        float $μ
@@ -86,7 +87,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
         $mean = $poisson->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.000001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.000001);
     }
 
     /**
@@ -104,7 +105,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     median
+     * @test         median
      * @dataProvider dataProviderForMedian
      * @param        float $λ
      * @param        float $expected
@@ -118,7 +119,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
         $median = $poisson->median();
 
         // Then
-        $this->assertEquals($expected, $median, '', 0.000001);
+        $this->assertEqualsWithDelta($expected, $median, 0.000001);
     }
 
     /**
@@ -136,7 +137,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMode
      * @param        float $λ
      * @param        array $expected
@@ -150,7 +151,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
         $mode = $poisson->mode();
 
         // Then
-        $this->assertEquals($expected, $mode, '', 0.000001);
+        $this->assertEqualsWithDelta($expected, $mode, 0.000001);
     }
 
     /**
@@ -168,7 +169,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        float $λ
      * @param        float $σ²
@@ -182,7 +183,7 @@ class PoissonTest extends \PHPUnit\Framework\TestCase
         $variance = $poisson->variance();
 
         // Then
-        $this->assertEquals($σ², $variance, '', 0.000001);
+        $this->assertEqualsWithDelta($σ², $variance, 0.000001);
     }
 
     /**

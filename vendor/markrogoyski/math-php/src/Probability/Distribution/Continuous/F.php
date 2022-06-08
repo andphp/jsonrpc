@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Probability\Distribution\Continuous;
 
 use MathPHP\Functions\Special;
@@ -16,7 +17,7 @@ class F extends Continuous
      * d₂ ∈ (0,∞)
      * @var array
      */
-    const PARAMETER_LIMITS = [
+    public const PARAMETER_LIMITS = [
         'd₁' => '(0,∞)',
         'd₂' => '(0,∞)',
     ];
@@ -26,7 +27,7 @@ class F extends Continuous
      * x  ∈ [0,∞)
      * @var array
      */
-    const SUPPORT_LIMITS = [
+    public const SUPPORT_LIMITS = [
         'x'  => '[0,∞)',
     ];
 
@@ -73,9 +74,9 @@ class F extends Continuous
         $d₂ = $this->d₂;
 
         // Numerator
-        $⟮d₁x⟯ᵈ¹d₂ᵈ²                = ($d₁ * $x)**$d₁ * $d₂**$d₂;
-        $⟮d₁x＋d₂⟯ᵈ¹⁺ᵈ²             = ($d₁ * $x + $d₂)**($d₁ + $d₂);
-        $√⟮d₁x⟯ᵈ¹d₂ᵈ²／⟮d₁x＋d₂⟯ᵈ¹⁺ᵈ² = sqrt($⟮d₁x⟯ᵈ¹d₂ᵈ² / $⟮d₁x＋d₂⟯ᵈ¹⁺ᵈ²);
+        $⟮d₁x⟯ᵈ¹d₂ᵈ²                = ($d₁ * $x) ** $d₁ * $d₂ ** $d₂;
+        $⟮d₁x＋d₂⟯ᵈ¹⁺ᵈ²             = ($d₁ * $x + $d₂) ** ($d₁ + $d₂);
+        $√⟮d₁x⟯ᵈ¹d₂ᵈ²／⟮d₁x＋d₂⟯ᵈ¹⁺ᵈ² = \sqrt($⟮d₁x⟯ᵈ¹d₂ᵈ² / $⟮d₁x＋d₂⟯ᵈ¹⁺ᵈ²);
 
         // Denominator
         $xB⟮d₁／2、d₂／2⟯ = $x * Special::beta($d₁ / 2, $d₂ / 2);
@@ -107,9 +108,9 @@ class F extends Continuous
 
         $ᵈ¹ˣ／d₁x＋d₂ = ($d₁ * $x) / ($d₁ * $x + $d₂);
 
-        return Special::regularizedIncompleteBeta($ᵈ¹ˣ／d₁x＋d₂, $d₁/2, $d₂/2);
+        return Special::regularizedIncompleteBeta($ᵈ¹ˣ／d₁x＋d₂, $d₁ / 2, $d₂ / 2);
     }
-    
+
     /**
      * Mean of the distribution
      *
@@ -169,9 +170,21 @@ class F extends Continuous
             return \NAN;
         }
 
-        $２d₂²⟮d₁ ＋ d₂ − 2⟯ = (2 * $d₂**2) * ($d₁ + $d₂ - 2);
-        $d₁⟮d₂ − 2⟯²⟮d₂ − 4⟯  = ($d₁ * ($d₂ - 2)**2) * ($d₂ - 4);
+        $２d₂²⟮d₁ ＋ d₂ − 2⟯ = (2 * $d₂ ** 2) * ($d₁ + $d₂ - 2);
+        $d₁⟮d₂ − 2⟯²⟮d₂ − 4⟯  = ($d₁ * ($d₂ - 2) ** 2) * ($d₂ - 4);
 
         return $２d₂²⟮d₁ ＋ d₂ − 2⟯ / $d₁⟮d₂ − 2⟯²⟮d₂ − 4⟯;
+    }
+
+    /**
+     * Median of the distribution
+     * @note: This is probably not correct and should be updated.
+     * @todo: Replace with actual median calculation.
+     *
+     * @return float
+     */
+    public function median(): float
+    {
+        return $this->mean();
     }
 }

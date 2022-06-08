@@ -17,10 +17,9 @@ use Swoole\Coroutine\Http\Client as HttpClient;
 
 class Client extends HttpClient implements ClientInterface
 {
-    public function set(array $settings)
+    public function set(array $settings): bool
     {
-        parent::set($settings);
-        return $this;
+        return parent::set($settings);
     }
 
     /**
@@ -51,10 +50,11 @@ class Client extends HttpClient implements ClientInterface
     {
         $result = [];
         foreach ($headers as $name => $header) {
+            // The key of header is lower case.
             $result[$name][] = $header;
         }
         if ($this->set_cookie_headers) {
-            $result['Set-Cookies'] = $this->set_cookie_headers;
+            $result['set-cookie'] = $this->set_cookie_headers;
         }
         return $result;
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Discrete;
 
 use MathPHP\Probability\Distribution\Discrete\ShiftedGeometric;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Discrete\ShiftedGeometric;
 class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pmf
+     * @test         pmf
      * @dataProvider dataProviderForPmf
      * @param        int $k
      * @param        float $p
@@ -21,7 +22,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
         $pmf = $shiftedGeometric->pmf($k);
 
         // Then
-        $this->assertEquals($expectedPmf, $pmf, '', 0.001);
+        $this->assertEqualsWithDelta($expectedPmf, $pmf, 0.001);
     }
 
     /**
@@ -43,7 +44,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        int $k
      * @param        float $p
@@ -58,7 +59,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
         $cdf = $shiftedGeometric->cdf($k);
 
         // Then
-        $this->assertEquals($expectedCdf, $cdf, '', 0.001);
+        $this->assertEqualsWithDelta($expectedCdf, $cdf, 0.001);
     }
 
     /**
@@ -80,7 +81,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        float $p
      * @param        float $μ
@@ -94,7 +95,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
         $mean = $shiftedGeometric->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.000001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.000001);
     }
 
     /**
@@ -113,7 +114,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     median
+     * @test         median
      * @dataProvider dataProviderForMedian
      * @param        float $p
      * @param        float $expected
@@ -127,7 +128,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
         $median = $shiftedGeometric->median();
 
         // Then
-        $this->assertEquals($expected, $median, '', 0.000001);
+        $this->assertEqualsWithDelta($expected, $median, 0.000001);
     }
 
     /**
@@ -146,7 +147,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMode
      * @param        float $p
      * @param        float $expected
@@ -160,7 +161,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
         $mode = $shiftedGeometric->mode();
 
         // Then
-        $this->assertEquals($expected, $mode, '', 0.000001);
+        $this->assertEqualsWithDelta($expected, $mode, 0.000001);
     }
 
     /**
@@ -179,7 +180,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        float $p
      * @param        float $σ²
@@ -193,7 +194,7 @@ class ShiftedGeometricTest extends \PHPUnit\Framework\TestCase
         $mode = $shiftedGeometric->variance();
 
         // Then
-        $this->assertEquals($σ², $mode, '', 0.000001);
+        $this->assertEqualsWithDelta($σ², $mode, 0.000001);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Continuous;
 
 use MathPHP\Probability\Distribution\Continuous\LogLogistic;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Continuous\LogLogistic;
 class LogLogisticTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pdf
+     * @test         pdf
      * @dataProvider dataProviderForPdf
      * @param        float $x
      * @param        float $α
@@ -22,7 +23,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
         $pdf = $logLogistic->pdf($x);
 
         // Then
-        $this->assertEquals($expectedPdf, $pdf, '', 0.000001);
+        $this->assertEqualsWithDelta($expectedPdf, $pdf, 0.000001);
     }
 
     /**
@@ -61,7 +62,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        float $x
      * @param        float $α
@@ -77,11 +78,11 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
         $cdf = $logLogistic->cdf($x);
 
         // Then
-        $this->assertEquals($expectedPdf, $cdf, '', 0.000001);
+        $this->assertEqualsWithDelta($expectedPdf, $cdf, 0.000001);
     }
 
     /**
-     * @testCase     inverse of cdf is x
+     * @test         inverse of cdf is x
      * @dataProvider dataProviderForCdf
      * @param        float $x
      * @param        float $α
@@ -97,7 +98,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
         $inverseOfCdf = $logLogistic->inverse($cdf);
 
         // Then
-        $this->assertEquals($x, $inverseOfCdf, '', 0.000001);
+        $this->assertEqualsWithDelta($x, $inverseOfCdf, 0.000001);
     }
 
     /**
@@ -136,7 +137,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        float $α
      * @param        float $β
@@ -151,7 +152,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
         $mean = $logLogistic->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.00001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.00001);
     }
 
     /**
@@ -168,7 +169,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean is not a number when shape is not greater than 1
+     * @test         mean is not a number when shape is not greater than 1
      * @dataProvider dataProviderForMeanNan
      * @param        float $α
      * @param        float $β
@@ -193,7 +194,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     median
+     * @test         median
      * @dataProvider dataProviderForMean
      * @param        float $α
      * @param        float $β
@@ -207,11 +208,11 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
         $median = $logLogistic->median();
 
         // Then
-        $this->assertEquals($α, $median, '', 0.00001);
+        $this->assertEqualsWithDelta($α, $median, 0.00001);
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMode
      * @param        float $α
      * @param        float $β
@@ -226,7 +227,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
         $mode = $logLogistic->mode();
 
         // Then
-        $this->assertEquals($expected, $mode, '', 0.00001);
+        $this->assertEqualsWithDelta($expected, $mode, 0.00001);
     }
 
     /**
@@ -245,7 +246,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        float $α
      * @param        float $β
@@ -260,7 +261,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
         $variance = $logLogistic->variance();
 
         // Then
-        $this->assertEquals($expected, $variance, '', 0.00001);
+        $this->assertEqualsWithDelta($expected, $variance, 0.00001);
     }
 
     /**
@@ -275,7 +276,7 @@ class LogLogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance is not a number when β ≤ 2
+     * @test         variance is not a number when β ≤ 2
      * @dataProvider dataProviderForVarianceNan
      * @param        float $α
      * @param        float $β

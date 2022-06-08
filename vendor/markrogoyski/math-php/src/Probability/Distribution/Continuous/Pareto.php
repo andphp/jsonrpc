@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Probability\Distribution\Continuous;
 
 use MathPHP\Functions\Support;
@@ -15,7 +16,7 @@ class Pareto extends Continuous
      * b ∈ (0,∞)
      * @var array
      */
-    const PARAMETER_LIMITS = [
+    public const PARAMETER_LIMITS = [
         'a' => '(0,∞)',
         'b' => '(0,∞)',
     ];
@@ -25,7 +26,7 @@ class Pareto extends Continuous
      * x ∈ (0,∞)
      * @var array
      */
-    const SUPPORT_LIMITS = [
+    public const SUPPORT_LIMITS = [
         'x' => '(0,∞)',
         'a' => '(0,∞)',
         'b' => '(0,∞)',
@@ -71,8 +72,8 @@ class Pareto extends Continuous
             return 0;
         }
 
-        $abᵃ  = $a * $b**$a;
-        $xᵃ⁺¹ = pow($x, $a + 1);
+        $abᵃ  = $a * $b ** $a;
+        $xᵃ⁺¹ = \pow($x, $a + 1);
         return $abᵃ / $xᵃ⁺¹;
     }
     /**
@@ -97,7 +98,7 @@ class Pareto extends Continuous
         if ($x < $b) {
             return 0;
         }
-        return 1 - pow($b / $x, $a);
+        return 1 - \pow($b / $x, $a);
     }
 
     /**
@@ -123,7 +124,7 @@ class Pareto extends Continuous
             return \INF;
         }
 
-        return $b / ((1 - $p)**(1/$a));
+        return $b / ((1 - $p) ** (1 / $a));
     }
 
     /**
@@ -143,7 +144,7 @@ class Pareto extends Continuous
         $b = $this->b;
 
         if ($a <= 1) {
-            return INF;
+            return \INF;
         }
 
         return $a * $b / ($a - 1);
@@ -161,7 +162,7 @@ class Pareto extends Continuous
         $a = $this->a;
         $b = $this->b;
 
-        return $a * (2**(1/$b));
+        return $a * (2 ** (1 / $b));
     }
 
     /**
@@ -196,6 +197,6 @@ class Pareto extends Continuous
             return \INF;
         }
 
-        return ($a * $b**2) / (($a - 1)**2 * ($a - 2));
+        return ($a * $b ** 2) / (($a - 1) ** 2 * ($a - 2));
     }
 }

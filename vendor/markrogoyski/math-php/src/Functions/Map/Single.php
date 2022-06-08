@@ -1,5 +1,8 @@
 <?php
+
 namespace MathPHP\Functions\Map;
+
+use MathPHP\Exception;
 
 /**
  * Map functions against a single array
@@ -16,7 +19,7 @@ class Single
      */
     public static function add(array $xs, $k): array
     {
-        return array_map(
+        return \array_map(
             function ($x) use ($k) {
                 return $x + $k;
             },
@@ -34,7 +37,7 @@ class Single
      */
     public static function subtract(array $xs, $k): array
     {
-        return array_map(
+        return \array_map(
             function ($x) use ($k) {
                 return $x - $k;
             },
@@ -52,7 +55,7 @@ class Single
      */
     public static function multiply(array $xs, $k): array
     {
-        return array_map(
+        return \array_map(
             function ($x) use ($k) {
                 return $x * $k;
             },
@@ -70,7 +73,7 @@ class Single
      */
     public static function divide(array $xs, $k): array
     {
-        return array_map(
+        return \array_map(
             function ($x) use ($k) {
                 return $x / $k;
             },
@@ -87,9 +90,9 @@ class Single
      */
     public static function square(array $xs): array
     {
-        return array_map(
+        return \array_map(
             function ($x) {
-                return $x**2;
+                return $x ** 2;
             },
             $xs
         );
@@ -104,9 +107,39 @@ class Single
      */
     public static function cube(array $xs): array
     {
-        return array_map(
+        return \array_map(
             function ($x) {
-                return $x**3;
+                return $x ** 3;
+            },
+            $xs
+        );
+    }
+
+    /**
+     * Map reciprocal
+     * x := 1/x
+     *
+     * @param  array  $xs
+     *
+     * @return array
+     *
+     * @throws Exception\BadDataException if 0 is one of the numbers
+     */
+    public static function reciprocal(array $xs): array
+    {
+        $zeros = \array_filter(
+            $xs,
+            function (float $x) {
+                return $x == 0;
+            }
+        );
+        if (!empty($zeros)) {
+            throw new Exception\BadDataException('Cannot compute the reciprocal of 0');
+        }
+
+        return \array_map(
+            function ($x) {
+                return 1 / $x;
             },
             $xs
         );
@@ -122,9 +155,9 @@ class Single
      */
     public static function pow(array $xs, $n): array
     {
-        return array_map(
+        return \array_map(
             function ($x) use ($n) {
-                return $x**$n;
+                return $x ** $n;
             },
             $xs
         );
@@ -139,9 +172,9 @@ class Single
      */
     public static function sqrt(array $xs): array
     {
-        return array_map(
+        return \array_map(
             function ($x) {
-                return sqrt($x);
+                return \sqrt($x);
             },
             $xs
         );
@@ -156,14 +189,14 @@ class Single
      */
     public static function abs(array $xs): array
     {
-        return array_map(
+        return \array_map(
             function ($x) {
-                return abs($x);
+                return \abs($x);
             },
             $xs
         );
     }
-    
+
     /**
      * Map min value
      * Each element in array is compared against the value,
@@ -176,14 +209,14 @@ class Single
      */
     public static function min(array $xs, $value): array
     {
-        return array_map(
+        return \array_map(
             function ($x) use ($value) {
-                return min($x, $value);
+                return \min($x, $value);
             },
             $xs
         );
     }
-    
+
     /**
      * Map max value
      * Each element in the array is compared against the value,
@@ -196,9 +229,9 @@ class Single
      */
     public static function max(array $xs, $value): array
     {
-        return array_map(
+        return \array_map(
             function ($x) use ($value) {
-                return max($x, $value);
+                return \max($x, $value);
             },
             $xs
         );

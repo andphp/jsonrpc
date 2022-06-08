@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Continuous;
 
 use MathPHP\Probability\Distribution\Continuous\F;
@@ -6,6 +7,7 @@ use MathPHP\Probability\Distribution\Continuous\F;
 class FTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @test         pdf
      * @dataProvider dataProviderForPdf
      * @param        int   $x
      * @param        int   $d₁
@@ -21,7 +23,7 @@ class FTest extends \PHPUnit\Framework\TestCase
         $pdf = $f->pdf($x);
 
         // Then
-        $this->assertEquals($expectedPdf, $pdf, '', 0.00001);
+        $this->assertEqualsWithDelta($expectedPdf, $pdf, 0.00001);
     }
 
     /**
@@ -67,7 +69,7 @@ class FTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        int   $x
      * @param        int   $d₁
@@ -83,7 +85,7 @@ class FTest extends \PHPUnit\Framework\TestCase
         $cdf = $f->cdf($x);
 
         // Then
-        $this->assertEquals($expectedCdf, $cdf, '', 0.00001);
+        $this->assertEqualsWithDelta($expectedCdf, $cdf, 0.00001);
     }
 
     /**
@@ -135,7 +137,7 @@ class FTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        int   $d₁
      * @param        int   $d₂
@@ -150,7 +152,7 @@ class FTest extends \PHPUnit\Framework\TestCase
         $mean = $f->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.0001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.0001);
     }
 
     /**
@@ -167,7 +169,7 @@ class FTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean is not a number if d₂ ≤ 2
+     * @test         mean is not a number if d₂ ≤ 2
      * @dataProvider dataProviderForMeanNan
      * @param        int $d₁
      * @param        int $d₂
@@ -196,7 +198,7 @@ class FTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMode
      * @param        int   $d₁
      * @param        int   $d₂
@@ -211,7 +213,7 @@ class FTest extends \PHPUnit\Framework\TestCase
         $mode = $f->mode();
 
         // Then
-        $this->assertEquals($μ, $mode, '', 0.0001);
+        $this->assertEqualsWithDelta($μ, $mode, 0.0001);
     }
 
     /**
@@ -230,7 +232,7 @@ class FTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode is not defined for d₁ <= 2
+     * @test         mode is not defined for d₁ <= 2
      * @dataProvider dataProviderForModeNan
      * @param        int   $d₁
      * @param        int   $d₂
@@ -261,7 +263,7 @@ class FTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        int   $d₁
      * @param        int   $d₂
@@ -276,7 +278,7 @@ class FTest extends \PHPUnit\Framework\TestCase
         $variance = $f->variance();
 
         // Then
-        $this->assertEquals($expected, $variance, '', 0.0001);
+        $this->assertEqualsWithDelta($expected, $variance, 0.0001);
     }
 
     /**
@@ -297,7 +299,7 @@ class FTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance is not defined for d₂ <= 4
+     * @test         variance is not defined for d₂ <= 4
      * @dataProvider dataProviderForVarianceNan
      * @param        int   $d₁
      * @param        int   $d₂
@@ -325,5 +327,25 @@ class FTest extends \PHPUnit\Framework\TestCase
             [2, 3],
             [5, 4],
         ];
+    }
+
+    /**
+     * @test         median (temporary version that is just the mean)
+     * @dataProvider dataProviderForMean
+     * @todo         Rewrite test using actual median values once median calculation is implemented
+     * @param        int   $d₁
+     * @param        int   $d₂
+     * @param        float $μ
+     */
+    public function testMedianTemporaryVersion(int $d₁, int $d₂, float $μ)
+    {
+        // Given
+        $f = new F($d₁, $d₂);
+
+        // When
+        $mean = $f->median();
+
+        // Then
+        $this->assertEqualsWithDelta($μ, $mean, 0.0001);
     }
 }

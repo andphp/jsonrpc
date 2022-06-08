@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Number;
 
 use MathPHP\Exception;
@@ -12,6 +13,9 @@ use MathPHP\Functions\Special;
  * equation i² = −1. In this expression, a is the real part and b is the imaginary
  * part of the complex number.
  * https://en.wikipedia.org/wiki/Complex_number
+ *
+ * @property-read number $r
+ * @property-read number $i
  */
 class Complex implements ObjectArithmetic
 {
@@ -26,12 +30,12 @@ class Complex implements ObjectArithmetic
      * @var number
      */
     protected $i;
-    
+
     /**
      * Floating-point range near zero to consider insignificant.
      */
-    const EPSILON = 1e-6;
-    
+    private const EPSILON = 1e-6;
+
     /**
      * Constructor
      *
@@ -43,7 +47,17 @@ class Complex implements ObjectArithmetic
         $this->r = $r;
         $this->i = $i;
     }
-    
+
+    /**
+     * Creates 0 + 0i
+     *
+     * @return Complex
+     */
+    public static function createZeroValue(): ObjectArithmetic
+    {
+        return new Complex(0, 0);
+    }
+
     /**
      * String representation of a complex number
      * a + bi, a - bi, etc.
@@ -61,7 +75,7 @@ class Complex implements ObjectArithmetic
         } elseif ($this->i > 0) {
             return "$this->r" . ' + ' . "$this->i" . 'i';
         } else {
-            return "$this->r" . ' - ' . (string) abs($this->i) . 'i';
+            return "$this->r" . ' - ' . (string) \abs($this->i) . 'i';
         }
     }
 
@@ -85,7 +99,7 @@ class Complex implements ObjectArithmetic
                 throw new Exception\BadParameterException("The $part property does not exist in Complex number");
         }
     }
-    
+
     /**************************************************************************
      * UNARY FUNCTIONS
      **************************************************************************/
@@ -114,9 +128,9 @@ class Complex implements ObjectArithmetic
      */
     public function abs()
     {
-        return sqrt($this->r**2 + $this->i**2);
+        return \sqrt($this->r ** 2 + $this->i ** 2);
     }
-    
+
     /**
      * The argument (phase) of a complex number
      * The argument of z is the angle of the radius OP with the positive real axis, and is written as arg(z).
@@ -129,9 +143,9 @@ class Complex implements ObjectArithmetic
      */
     public function arg()
     {
-        return atan2($this->i, $this->r);
+        return \atan2($this->i, $this->r);
     }
-    
+
     /**
      * The square root of a complex number
      * https://en.wikipedia.org/wiki/Complex_number#Square_root
@@ -183,8 +197,8 @@ class Complex implements ObjectArithmetic
     public function roots(): array
     {
         $sgn = Special::sgn($this->i) >= 0 ? 1 : -1;
-        $γ   = sqrt(($this->r + $this->abs()) / 2);
-        $δ   = $sgn * sqrt((-$this->r + $this->abs()) / 2);
+        $γ   = \sqrt(($this->r + $this->abs()) / 2);
+        $δ   = $sgn * \sqrt((-$this->r + $this->abs()) / 2);
 
         $z₁ = new Complex($γ, $δ);
         $z₂ = new Complex(-$γ, -$δ);
@@ -225,21 +239,35 @@ class Complex implements ObjectArithmetic
      * Polar form
      * https://en.wikipedia.org/wiki/Complex_number#Polar_form
      *
-     * z = a + bi = r(cos(θ) + i sin(θ))
+     * z = a + bi = r(cos(θ) + i  sin(θ))
      * Where
      *  r = |z|
      *  θ = arg(z) (in radians)
      *
-     * @return Complex
+     * @return number[]
      */
-    public function polarForm(): Complex
+    public function polarForm(): array
     {
         $r = $this->abs();
         $θ = $this->arg();
 
-        return new Complex($r * cos($θ), $r * sin($θ));
+        return [$r, $θ];
     }
 
+    /**
+     * Complex Exponentiation
+     * https://en.wikipedia.org/wiki/Complex_number#Exponential_function
+     *
+     * eˣ⁺ⁱʸ = eˣ*cos(y) + i*eˣ*sin(y)
+     *
+     * @return Complex
+     */
+    public function exp(): Complex
+    {
+        $r = \exp($this->r) * \cos($this->i);
+        $i = \exp($this->r) * \sin($this->i);
+        return new Complex($r, $i);
+    }
     /**************************************************************************
      * BINARY FUNCTIONS
      **************************************************************************/
@@ -258,7 +286,7 @@ class Complex implements ObjectArithmetic
      */
     public function add($c): Complex
     {
-        if (is_numeric($c)) {
+        if (\is_numeric($c)) {
             $r = $this->r + $c;
             $i = $this->i;
         } elseif ($c instanceof Complex) {
@@ -285,7 +313,7 @@ class Complex implements ObjectArithmetic
      */
     public function subtract($c): Complex
     {
-        if (is_numeric($c)) {
+        if (\is_numeric($c)) {
             $r = $this->r - $c;
             $i = $this->i;
         } elseif ($c instanceof Complex) {
@@ -312,7 +340,7 @@ class Complex implements ObjectArithmetic
      */
     public function multiply($c): Complex
     {
-        if (is_numeric($c)) {
+        if (\is_numeric($c)) {
             $r = $c * $this->r;
             $i = $c * $this->i;
         } elseif ($c instanceof Complex) {
@@ -338,7 +366,7 @@ class Complex implements ObjectArithmetic
      */
     public function divide($c): Complex
     {
-        if (is_numeric($c)) {
+        if (\is_numeric($c)) {
             $r = $this->r / $c;
             $i = $this->i / $c;
             return new Complex($r, $i);
@@ -348,7 +376,39 @@ class Complex implements ObjectArithmetic
             throw new Exception\IncorrectTypeException('Argument must be real or complex number');
         }
     }
-    
+
+    /**
+     * Complex exponentiation
+     * Raise a complex number to a power.
+     *  - https://en.wikipedia.org/wiki/Complex_number#Exponentiation
+     *  - https://mathworld.wolfram.com/ComplexExponentiation.html
+     *
+     * @param Complex|number $c
+     *
+     * @return Complex
+     *
+     * @throws Exception\IncorrectTypeException if the argument is not numeric or Complex.
+     */
+    public function pow($c): Complex
+    {
+        if (\is_numeric($c)) {
+            $tmp = new Complex(0, $c * $this->arg());
+            return $tmp->exp()->multiply($this->abs() ** $c);
+        }
+
+        if ($c instanceof Complex) {
+            $r = $this->abs();
+            $θ = $this->arg();
+            $real = $r ** $c->r * exp(-1 * $θ * $c->i);
+            $inner = $r == 0 ? 0 : $c->i * log($r) + $c->r * $θ;
+            $new_r = $real * \cos($inner);
+            $new_i = $real * \sin($inner);
+            return new Complex($new_r, $new_i);
+        }
+
+        throw new Exception\IncorrectTypeException('Argument must be real or complex number');
+    }
+
     /**************************************************************************
      * COMPARISON FUNCTIONS
      **************************************************************************/
@@ -365,6 +425,6 @@ class Complex implements ObjectArithmetic
      */
     public function equals(Complex $c): bool
     {
-        return abs($this->r - $c->r) < self::EPSILON && abs($this->i - $c->i) < self::EPSILON;
+        return \abs($this->r - $c->r) < self::EPSILON && \abs($this->i - $c->i) < self::EPSILON;
     }
 }

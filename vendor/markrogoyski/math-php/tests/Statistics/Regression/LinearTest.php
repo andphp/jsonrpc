@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Statistics\Regression;
 
 use MathPHP\Statistics\Regression\Linear;
@@ -6,54 +7,71 @@ use MathPHP\Statistics\Regression\Linear;
 class LinearTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase constructor
+     * @test constructor
      */
     public function testConstructor()
     {
+        // Given
         $points = [ [1,2], [2,3], [4,5], [5,7], [6,8] ];
+
+        // When
         $regression = new Linear($points);
+
+        // Then
         $this->assertInstanceOf(\MathPHP\Statistics\Regression\Regression::class, $regression);
         $this->assertInstanceOf(\MathPHP\Statistics\Regression\Linear::class, $regression);
     }
 
     /**
-     * @testCase getPoints
+     * @test getPoints
      */
     public function testGetPoints()
     {
+        // Given
         $points = [ [1,2], [2,3], [4,5], [5,7], [6,8] ];
         $regression = new Linear($points);
+
+        // Then
         $this->assertEquals($points, $regression->getPoints());
     }
 
     /**
-     * @testCase getXs
+     * @test getXs
      */
     public function testGetXs()
     {
+        // Given
         $points = [ [1,2], [2,3], [4,5], [5,7], [6,8] ];
         $regression = new Linear($points);
+
+        // Then
         $this->assertEquals([1,2,4,5,6], $regression->getXs());
     }
 
     /**
-     * @testCase getYs
+     * @test getYs
      */
     public function testGetYs()
     {
+        // Given
         $points = [ [1,2], [2,3], [4,5], [5,7], [6,8] ];
         $regression = new Linear($points);
+
+        // Then
         $this->assertEquals([2,3,5,7,8], $regression->getYs());
     }
 
     /**
-     * @testCase     getEquation - Equation matches pattern y = mx + b
+     * @test         getEquation - Equation matches pattern y = mx + b
      * @dataProvider dataProviderForEquation
      * @param        array $points
      */
     public function testGetEquation(array $points)
     {
+        // Given
         $regression = new Linear($points);
+
+        // Then
         $this->assertRegExp('/^y = -?\d+[.]\d+x [+] -?\d+[.]\d+$/', $regression->getEquation());
     }
 
@@ -70,7 +88,7 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     getParameters
+     * @test         getParameters
      * @dataProvider dataProviderForParameters
      * @param        array $points
      * @param        float $m
@@ -78,10 +96,15 @@ class LinearTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetParameters(array $points, float $m, float $b)
     {
+        // Given
         $regression = new Linear($points);
+
+        // When
         $parameters = $regression->getParameters();
-        $this->assertEquals($m, $parameters['m'], '', 0.0001);
-        $this->assertEquals($b, $parameters['b'], '', 0.0001);
+
+        // Then
+        $this->assertEqualsWithDelta($m, $parameters['m'], 0.0001);
+        $this->assertEqualsWithDelta($b, $parameters['b'], 0.0001);
     }
 
     /**
@@ -124,14 +147,17 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     getSampleSize
+     * @test         getSampleSize
      * @dataProvider dataProviderForSampleSize
      * @param        array $points
      * @param        int   $n
      */
     public function testGetSampleSize(array $points, int $n)
     {
+        // Given
         $regression = new Linear($points);
+
+        // Then
         $this->assertEquals($n, $regression->getSampleSize());
     }
 
@@ -151,7 +177,7 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     evaluate
+     * @test         evaluate
      * @dataProvider dataProviderForEvaluate
      * @param        array $points
      * @param        float $x
@@ -159,8 +185,11 @@ class LinearTest extends \PHPUnit\Framework\TestCase
      */
     public function testEvaluate(array $points, float $x, float $y)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($y, $regression->evaluate($x), '', 0.01);
+
+        // Then
+        $this->assertEqualsWithDelta($y, $regression->evaluate($x), 0.01);
     }
 
     /**
@@ -198,7 +227,7 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     ci
+     * @test         ci
      * @dataProvider dataProviderForCI
      * @param        array $points
      * @param        float $x
@@ -208,8 +237,11 @@ class LinearTest extends \PHPUnit\Framework\TestCase
      */
     public function testCI(array $points, float $x, float $p, float $ci)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($ci, $regression->ci($x, $p), '', .0000001);
+
+        // Then
+        $this->assertEqualsWithDelta($ci, $regression->ci($x, $p), .0000001);
     }
 
     /**
@@ -234,7 +266,26 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     pi
+     * @test Github issue 429 - ci division by zero
+     */
+    public function testBugIssue429CI()
+    {
+        // Given
+        $points = [[5,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,0],[8,1],[8,0],[8,1],[8,1],[8,1],[8,1],[8,0],[8,1],[8,0],[8,1],[8,0],[8,1],[8,0],[8,1],[8,0],[8,1],[8,1],[8,1],[8,0],[8,1],[8,0],[8,1],[8,1],[8,1],[8,0],[8,1],[8,0],[8,1],[8,0],[8,1],[8,0],[8,1],[8,0],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1],[8,1]];
+        $x      = 5.0;
+
+        // And
+        $regression = new Linear($points);
+
+        // When
+        $ci = $regression->ci($x, 0.05);
+
+        // Then
+        $this->assertEqualsWithDelta(0.39030395, $ci, 0.000001);
+    }
+
+    /**
+     * @test         pi
      * @dataProvider dataProviderForPI
      * @param        array $points
      * @param        float $x
@@ -245,8 +296,11 @@ class LinearTest extends \PHPUnit\Framework\TestCase
      */
     public function testPI(array $points, float $x, float $p, float $q, float $pi)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($pi, $regression->pi($x, $p, $q), '', .0000001);
+
+        // Then
+        $this->assertEqualsWithDelta($pi, $regression->pi($x, $p, $q), .0000001);
     }
 
     /**
@@ -271,16 +325,21 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     fProbability
+     * @test         fProbability
      * @dataProvider dataProviderForFProbability
      * @param        array $points
      * @param        float $probability
      */
     public function testFProbability(array $points, float $probability)
     {
+        // Given
         $regression = new Linear($points);
+
+        // When
         $Fprob = $regression->fProbability();
-        $this->assertEquals($probability, $Fprob, '', .0000001);
+
+        // Then
+        $this->assertEqualsWithDelta($probability, $Fprob, .0000001);
     }
 
     /**
@@ -297,7 +356,7 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     tProbability
+     * @test         tProbability
      * @dataProvider dataProviderForTProbability
      * @param        array $points
      * @param        float $beta0
@@ -305,10 +364,15 @@ class LinearTest extends \PHPUnit\Framework\TestCase
      */
     public function testTProbability(array $points, float $beta0, float $beta1)
     {
+        // Given
         $regression = new Linear($points);
+
+        // When
         $Tprob = $regression->tProbability();
-        $this->assertEquals($beta0, $Tprob['m'], '', .0000001);
-        $this->assertEquals($beta1, $Tprob['b'], '', .0000001);
+
+        // Then
+        $this->assertEqualsWithDelta($beta0, $Tprob['m'], .0000001);
+        $this->assertEqualsWithDelta($beta1, $Tprob['b'], .0000001);
     }
 
     /**
@@ -325,17 +389,22 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     leverages
+     * @test         leverages
      * @dataProvider dataProviderForLeverages
      * @param        array $points
      * @param        array $leverages
      */
     public function testLeverages(array $points, array $leverages)
     {
+        // Given
         $regression = new Linear($points);
+
+        // When
         $test_leverages = $regression->leverages();
+
+        // Then
         foreach ($leverages as $key => $value) {
-            $this->assertEquals($value, $test_leverages[$key], '', .0000001);
+            $this->assertEqualsWithDelta($value, $test_leverages[$key], .0000001);
         }
     }
 
@@ -353,15 +422,18 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     degreesOfFreedom
+     * @test         degreesOfFreedom
      * @dataProvider dataProviderForDF
      * @param        array $points
      * @param        int   $df
      */
     public function testDF(array $points, int $df)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($df, $regression->degreesOfFreedom(), '', .0000001);
+
+        // Then
+        $this->assertEqualsWithDelta($df, $regression->degreesOfFreedom(), .0000001);
     }
 
     /**
@@ -378,18 +450,23 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     getProjectionMatrix
+     * @test         getProjectionMatrix
      * @dataProvider dataProviderForGetProjection
      * @param        array $points
      * @param        array $P
      */
     public function testGetProjection(array $points, array $P)
     {
+        // Given
         $regression = new Linear($points);
+
+        // When
         $test_P = $regression->getProjectionMatrix();
+
+        // Then
         foreach ($P as $row_num => $row) {
             foreach ($row as $column_num => $value) {
-                $this->assertEquals($value, $test_P[$row_num][$column_num], '', .0000001);
+                $this->assertEqualsWithDelta($value, $test_P[$row_num][$column_num], .0000001);
             }
         }
     }
@@ -412,18 +489,21 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean squares
+     * @test         mean squares
      * @dataProvider dataProviderForMeanSquares
      * @param        array $points
      * @param        array $sums
      */
     public function testMeanSquares(array $points, array $sums)
     {
+        // Given
         $regression = new Linear($points);
-        $this->assertEquals($sums['mse'], $regression->meanSquareResidual(), '', .0000001);
-        $this->assertEquals($sums['msr'], $regression->meanSquareRegression(), '', .0000001);
-        $this->assertEquals($sums['mst'], $regression->meanSquareTotal(), '', .0000001);
-        $this->assertEquals($sums['sd'], $regression->errorSd(), '', .0000001);
+
+        // Then
+        $this->assertEqualsWithDelta($sums['mse'], $regression->meanSquareResidual(), .0000001);
+        $this->assertEqualsWithDelta($sums['msr'], $regression->meanSquareRegression(), .0000001);
+        $this->assertEqualsWithDelta($sums['mst'], $regression->meanSquareTotal(), .0000001);
+        $this->assertEqualsWithDelta($sums['sd'], $regression->errorSd(), .0000001);
     }
 
     /**
@@ -445,7 +525,7 @@ class LinearTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     outliers
+     * @test         outliers
      * @dataProvider dataProviderForOutliers
      * @param        array $points
      * @param        array $cook
@@ -453,14 +533,19 @@ class LinearTest extends \PHPUnit\Framework\TestCase
      */
     public function testOutliers(array $points, array $cook, array $DFFITS)
     {
+        // Given
         $regression = new Linear($points);
-        $test_cook = $regression->cooksD();
+
+        // When
+        $test_cook   = $regression->cooksD();
         $test_dffits = $regression->dffits();
+
+        // Then
         foreach ($test_cook as $key => $value) {
-            $this->assertEquals($value, $cook[$key], '', .0000001);
+            $this->assertEqualsWithDelta($value, $cook[$key], .0000001);
         }
         foreach ($test_dffits as $key => $value) {
-            $this->assertEquals($value, $DFFITS[$key], '', .0000001);
+            $this->assertEqualsWithDelta($value, $DFFITS[$key], .0000001);
         }
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Continuous;
 
 use MathPHP\Probability\Distribution\Continuous\Pareto;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Continuous\Pareto;
 class ParetoTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pdf
+     * @test         pdf
      * @dataProvider dataProviderForPdf
      * @param        float $x
      * @param        float $a
@@ -22,7 +23,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
         $pdf = $pareto->pdf($x);
 
         // Then
-        $this->assertEquals($expected_pdf, $pdf, '', 0.00001);
+        $this->assertEqualsWithDelta($expected_pdf, $pdf, 0.00001);
     }
 
     /**
@@ -71,7 +72,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        float $x
      * @param        float $a
@@ -87,7 +88,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
         $cdf = $pareto->cdf($x);
 
         // Then
-        $this->assertEquals($expected_cdf, $cdf, '', 0.00001);
+        $this->assertEqualsWithDelta($expected_cdf, $cdf, 0.00001);
     }
 
     /**
@@ -136,7 +137,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     inverse
+     * @test         inverse
      * @dataProvider dataProviderForInverse
      * @param        float $p
      * @param        float $a
@@ -152,7 +153,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
         $inverse = $pareto->inverse($p);
 
         // Then
-        $this->assertEquals($expected_inverse, $inverse, '', 0.00001);
+        $this->assertEqualsWithDelta($expected_inverse, $inverse, 0.00001);
     }
 
     /**
@@ -196,7 +197,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     inverse of CDF is x
+     * @test         inverse of CDF is x
      * @dataProvider dataProviderForInverseOfCdf
      * @param        float $x
      * @param        float $a
@@ -212,7 +213,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
         $inverse_of_cdf = $pareto->inverse($cdf);
 
         // Then
-        $this->assertEquals($x, $inverse_of_cdf, '', 0.000001);
+        $this->assertEqualsWithDelta($x, $inverse_of_cdf, 0.000001);
     }
 
     /**
@@ -250,7 +251,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        float $a
      * @param        float $b
@@ -265,7 +266,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
         $mean = $pareto->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.0001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.0001);
     }
 
     /**
@@ -284,7 +285,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     median
+     * @test         median
      * @dataProvider dataProviderForMedian
      * @param        float $a
      * @param        float $b
@@ -299,7 +300,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
         $median = $pareto->median();
 
         // Then
-        $this->assertEquals($expected_median, $median, '', 0.0000001);
+        $this->assertEqualsWithDelta($expected_median, $median, 0.0000001);
     }
 
     /**
@@ -316,7 +317,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMode
      * @param        float $a
      * @param        float $b
@@ -331,7 +332,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
         $mode = $pareto->mode();
 
         // Then
-        $this->assertEquals($expected, $mode, '', 0.0000001);
+        $this->assertEqualsWithDelta($expected, $mode, 0.0000001);
     }
 
     /**
@@ -348,7 +349,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        float $a
      * @param        float $b
@@ -363,7 +364,7 @@ class ParetoTest extends \PHPUnit\Framework\TestCase
         $variance = $pareto->variance();
 
         // Then
-        $this->assertEquals($expected, $variance, '', 0.0000001);
+        $this->assertEqualsWithDelta($expected, $variance, 0.0000001);
     }
 
     /**

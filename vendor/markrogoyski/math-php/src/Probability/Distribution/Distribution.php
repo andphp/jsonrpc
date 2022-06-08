@@ -1,10 +1,14 @@
 <?php
+
 namespace MathPHP\Probability\Distribution;
 
 use MathPHP\Functions\Support;
 
 abstract class Distribution
 {
+    // Overridden by implementing classes
+    public const PARAMETER_LIMITS = [];
+
     /**
      * Constructor
      *

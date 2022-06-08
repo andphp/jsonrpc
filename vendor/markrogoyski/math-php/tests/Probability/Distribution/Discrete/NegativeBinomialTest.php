@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Discrete;
 
 use MathPHP\Probability\Distribution\Discrete\NegativeBinomial;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Discrete\NegativeBinomial;
 class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pmf
+     * @test         pmf
      * @dataProvider dataProviderForPmf
      * @param        int   $r
      * @param        float $p
@@ -23,7 +24,7 @@ class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
         $pmf = $negativeBinomial->pmf($x);
 
         // Then
-        $this->assertEquals($expectedPmf, $pmf, '', 0.00000001);
+        $this->assertEqualsWithDelta($expectedPmf, $pmf, 0.00000001);
     }
 
     /**
@@ -46,7 +47,7 @@ class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        int   $r
      * @param        float $p
@@ -63,7 +64,7 @@ class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
         $cdf = $negativeBinomial->cdf($x);
 
         // Then
-        $this->assertEquals($expectedCdf, $cdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($expectedCdf, $cdf, 0.0000001);
     }
 
     /**
@@ -87,7 +88,7 @@ class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        int   $r
      * @param        float $p
@@ -102,7 +103,7 @@ class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
         $mean = $negativeBinomial->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.00000001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.00000001);
     }
 
     /**
@@ -117,7 +118,7 @@ class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
 
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMode
      * @param        int   $r
      * @param        float $p
@@ -132,7 +133,7 @@ class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
         $mode = $negativeBinomial->mode();
 
         // Then
-        $this->assertEquals($expected, $mode, '', 0.00000001);
+        $this->assertEqualsWithDelta($expected, $mode, 0.00000001);
     }
 
     /**
@@ -152,7 +153,7 @@ class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        int   $r
      * @param        float $p
@@ -167,7 +168,7 @@ class NegativeBinomialTest extends \PHPUnit\Framework\TestCase
         $variance = $negativeBinomial->variance();
 
         // Then
-        $this->assertEquals($σ², $variance, '', 0.00000001);
+        $this->assertEqualsWithDelta($σ², $variance, 0.00000001);
     }
 
     /**

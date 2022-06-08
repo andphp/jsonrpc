@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Continuous;
 
 use MathPHP\Probability\Distribution\Continuous\Logistic;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Continuous\Logistic;
 class LogisticTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pdf
+     * @test         pdf
      * @dataProvider dataProviderForPdf
      * @param        float $x
      * @param        float $μ
@@ -22,7 +23,7 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
         $pdf = $logistic->pdf($x);
 
         // Then
-        $this->assertEquals($expected_pdf, $pdf, '', 0.000001);
+        $this->assertEqualsWithDelta($expected_pdf, $pdf, 0.000001);
     }
 
     /**
@@ -69,7 +70,7 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        float $x
      * @param        float $μ
@@ -85,11 +86,11 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
         $cdf = $logistic->cdf($x);
 
         // Then
-        $this->assertEquals($expected_cdf, $cdf, '', 0.000001);
+        $this->assertEqualsWithDelta($expected_cdf, $cdf, 0.000001);
     }
 
     /**
-     * @testCase     inverse of cdf is x
+     * @test         inverse of cdf is x
      * @dataProvider dataProviderForCdf
      * @param        float $x
      * @param        float $μ
@@ -105,7 +106,7 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
         $inverse_of_cdf = $logistic->inverse($cdf);
 
         // Then
-        $this->assertEquals($x, $inverse_of_cdf, '', 0.000001);
+        $this->assertEqualsWithDelta($x, $inverse_of_cdf, 0.000001);
     }
 
     /**
@@ -151,12 +152,12 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase mean
+     * @test     mean
      */
     public function testMean()
     {
-        foreach (range(-3, 3) as $μ) {
-            foreach (range(1, 3) as $s) {
+        foreach (\range(-3, 3) as $μ) {
+            foreach (\range(1, 3) as $s) {
                 // Given
                 $logistic = new Logistic($μ, $s);
 
@@ -170,12 +171,12 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase median
+     * @test     median
      */
     public function testMedian()
     {
-        foreach (range(-3, 3) as $μ) {
-            foreach (range(1, 3) as $s) {
+        foreach (\range(-3, 3) as $μ) {
+            foreach (\range(1, 3) as $s) {
                 // Given
                 $logistic = new Logistic($μ, $s);
 
@@ -189,12 +190,12 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase mode
+     * @test     mode
      */
     public function testMode()
     {
-        foreach (range(-3, 3) as $μ) {
-            foreach (range(1, 3) as $s) {
+        foreach (\range(-3, 3) as $μ) {
+            foreach (\range(1, 3) as $s) {
                 // Given
                 $logistic = new Logistic($μ, $s);
 
@@ -208,7 +209,7 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        float $μ
      * @param        float $s
@@ -223,7 +224,7 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
         $variance = $logistic->variance();
 
         // Then
-        $this->assertEquals($expected, $variance, '', 0.000001);
+        $this->assertEqualsWithDelta($expected, $variance, 0.000001);
     }
 
     /**
@@ -240,7 +241,7 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     inverse
+     * @test         inverse
      * @dataProvider dataProviderForInverse
      * @param        float $p
      * @param        float $μ
@@ -256,7 +257,7 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
         $inverse = $logistic->inverse($p);
 
         // Then
-        $this->assertEquals($expected_inverse, $inverse, '', 0.00001);
+        $this->assertEqualsWithDelta($expected_inverse, $inverse, 0.00001);
     }
 
     /**
@@ -301,12 +302,12 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase rand
+     * @test rand
      */
     public function testRand()
     {
-        foreach (range(-3, 3) as $μ) {
-            foreach (range(1, 3) as $s) {
+        foreach (\range(-3, 3) as $μ) {
+            foreach (\range(1, 3) as $s) {
                 // Given
                 $logistic = new Logistic($μ, $s);
 
@@ -314,7 +315,7 @@ class LogisticTest extends \PHPUnit\Framework\TestCase
                 $rand = $logistic->rand();
 
                 // Then
-                $this->assertTrue(is_numeric($rand));
+                $this->assertTrue(\is_numeric($rand));
             }
         }
     }

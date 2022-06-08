@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Discrete;
 
 use MathPHP\Probability\Distribution\Discrete\Bernoulli;
@@ -7,7 +8,7 @@ use MathPHP\Probability\Distribution\Discrete\Binomial;
 class BernoulliTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pmf
+     * @test         pmf
      * @dataProvider dataProviderForPMF
      * @param        int $k
      * @param        float $p
@@ -22,7 +23,7 @@ class BernoulliTest extends \PHPUnit\Framework\TestCase
         $pmf = $bernoulli->pmf($k);
 
         // Then
-        $this->assertEquals($expectedPmf, $pmf, '', 0.000001);
+        $this->assertEqualsWithDelta($expectedPmf, $pmf, 0.000001);
     }
 
     /**
@@ -39,7 +40,7 @@ class BernoulliTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     pmf is same as Binomial with n = 1
+     * @test         pmf is same as Binomial with n = 1
      * @dataProvider dataProviderForMean
      * @param        float $p
      */
@@ -55,7 +56,7 @@ class BernoulliTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCDF
      * @param        int $k
      * @param        float $p
@@ -70,7 +71,7 @@ class BernoulliTest extends \PHPUnit\Framework\TestCase
         $cdf = $bernoulli->cdf($k);
 
         // Then
-        $this->assertEquals($expectedCdf, $cdf, '', 0.000001);
+        $this->assertEqualsWithDelta($expectedCdf, $cdf, 0.000001);
     }
 
     /**
@@ -88,7 +89,7 @@ class BernoulliTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        float $p
      * @param        float $μ
@@ -126,7 +127,7 @@ class BernoulliTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     median
+     * @test         median
      * @dataProvider dataProviderForMedian
      * @param        float $p
      * @param        float $expected
@@ -164,7 +165,7 @@ class BernoulliTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMode
      * @param        float   $p
      * @param        float[] $expected
@@ -202,7 +203,7 @@ class BernoulliTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        float $p
      * @param        float $σ²

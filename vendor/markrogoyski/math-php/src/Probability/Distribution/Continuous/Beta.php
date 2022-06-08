@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Probability\Distribution\Continuous;
 
 use MathPHP\Exception\MathException;
@@ -17,7 +18,7 @@ class Beta extends Continuous
      * β ∈ (0,∞)
      * @var array
      */
-    const PARAMETER_LIMITS = [
+    public const PARAMETER_LIMITS = [
         'α' => '(0,∞)',
         'β' => '(0,∞)',
     ];
@@ -27,7 +28,7 @@ class Beta extends Continuous
      * x ∈ [0,1]
      * @var array
      */
-    const SUPPORT_LIMITS = [
+    public const SUPPORT_LIMITS = [
         'x' => '[0,1]',
     ];
 
@@ -66,8 +67,8 @@ class Beta extends Continuous
         $α = $this->α;
         $β = $this->β;
 
-        $xᵃ⁻¹ = pow($x, $α - 1);
-        $⟮1 − x⟯ᵝ⁻¹ = pow(1 - $x, $β - 1);
+        $xᵃ⁻¹ = \pow($x, $α - 1);
+        $⟮1 − x⟯ᵝ⁻¹ = \pow(1 - $x, $β - 1);
         $B⟮α、β⟯ = Special::beta($α, $β);
         return ($xᵃ⁻¹ * $⟮1 − x⟯ᵝ⁻¹) / $B⟮α、β⟯;
     }
@@ -105,7 +106,7 @@ class Beta extends Continuous
      */
     public function inverse(float $x, float $tolerance = 1.0e-15, int $max_iterations = 200): float
     {
-        list($a, $b) = [0, 2];
+        [$a, $b] = [0, 2];
 
         for ($i = 0; $i < $max_iterations; $i++) {
             $guess = ($a + $b) / 2;
@@ -173,11 +174,11 @@ class Beta extends Continuous
         }
 
         if ($α == 1 && $β > 0) {
-            return 1 - 2**(-1 / $β);
+            return 1 - 2 ** (-1 / $β);
         }
 
         if ($β == 1 && $α > 0) {
-            return 2**(-1 / $α);
+            return 2 ** (-1 / $α);
         }
 
         if ($α == 3 && $β == 2) {
@@ -188,7 +189,7 @@ class Beta extends Continuous
             return 0.38572756813238945;
         }
 
-        return ($α - 1/3) / ($α + $β - 2/3);
+        return ($α - 1 / 3) / ($α + $β - 2 / 3);
     }
 
     /**
@@ -233,7 +234,7 @@ class Beta extends Continuous
         $β = $this->β;
 
         $αβ          = $α * $β;
-        $⟮α ＋ β⟯²     = ($α + $β)**2;
+        $⟮α ＋ β⟯²     = ($α + $β) ** 2;
         $⟮α ＋ β ＋ 1⟯ = $α + $β + 1;
 
         return $αβ / ($⟮α ＋ β⟯² * $⟮α ＋ β ＋ 1⟯);

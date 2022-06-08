@@ -6,14 +6,16 @@
 # @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
 
 ARG PHP_VERSION
+ARG ALPINE_VERSION
 
-FROM hyperf/hyperf:${PHP_VERSION}-alpine-v3.11-swoole
+FROM hyperf/hyperf:${PHP_VERSION}-alpine-${ALPINE_VERSION}-swoole
 LABEL maintainer="Hyperf Developers <group@hyperf.io>" version="1.0" license="MIT" app.name="Hyperf"
 
 ARG timezone
 ARG PHP_VERSION
 
 ENV TIMEZONE=${timezone:-"Asia/Shanghai"}
+ENV COMPOSER_ROOT_VERSION="v1.2.0"
 
 # update
 RUN set -ex \

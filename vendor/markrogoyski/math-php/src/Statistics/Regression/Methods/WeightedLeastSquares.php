@@ -1,11 +1,10 @@
 <?php
+
 namespace MathPHP\Statistics\Regression\Methods;
 
 use MathPHP\Exception;
-use MathPHP\LinearAlgebra\Matrix;
-use MathPHP\LinearAlgebra\ColumnVector;
-use MathPHP\LinearAlgebra\VandermondeMatrix;
-use MathPHP\LinearAlgebra\DiagonalMatrix;
+use MathPHP\LinearAlgebra\NumericMatrix;
+use MathPHP\LinearAlgebra\MatrixFactory;
 
 trait WeightedLeastSquares
 {
@@ -50,17 +49,16 @@ trait WeightedLeastSquares
      * @param  array $ws weight values
      * @param  int   $order
      *
-     * @return Matrix [[m], [b]]
+     * @return NumericMatrix [[m], [b]]
      *
-     * @throws Exception\MatrixException
-     * @throws Exception\IncorrectTypeException
+     * @throws Exception\MathException
      */
-    public function leastSquares(array $ys, array $xs, array $ws, int $order = 1): Matrix
+    public function leastSquares(array $ys, array $xs, array $ws, int $order = 1): NumericMatrix
     {
         // y = Xa
-        $X = new VandermondeMatrix($xs, $order + 1);
-        $y = new ColumnVector($ys);
-        $W = new DiagonalMatrix($ws);
+        $X = MatrixFactory::vandermonde($xs, $order + 1);
+        $y = MatrixFactory::createFromColumnVector($ys);
+        $W = MatrixFactory::diagonal($ws);
 
         // a = (XᵀWX)⁻¹XᵀWy
         $Xᵀ       = $X->transpose();

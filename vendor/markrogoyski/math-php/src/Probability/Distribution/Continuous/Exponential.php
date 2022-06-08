@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Probability\Distribution\Continuous;
 
 use MathPHP\Exception\OutOfBoundsException;
@@ -14,7 +15,7 @@ class Exponential extends Continuous
      * λ ∈ (0,∞)
      * @var array
      */
-    const PARAMETER_LIMITS = [
+    public const PARAMETER_LIMITS = [
         'λ' => '(0,∞)',
     ];
 
@@ -23,7 +24,7 @@ class Exponential extends Continuous
      * x ∈ [0,∞)
      * @var array
      */
-    const SUPPORT_LIMITS = [
+    public const SUPPORT_LIMITS = [
         'x' => '[0,∞)',
     ];
 
@@ -58,7 +59,7 @@ class Exponential extends Continuous
 
         $λ = $this->λ;
 
-        return $λ * exp(-$λ * $x);
+        return $λ * \exp(-$λ * $x);
     }
     /**
      * Cumulative distribution function
@@ -78,7 +79,7 @@ class Exponential extends Continuous
 
         $λ = $this->λ;
 
-        return 1 - exp(-$λ * $x);
+        return 1 - \exp(-$λ * $x);
     }
 
     /**
@@ -103,9 +104,9 @@ class Exponential extends Continuous
             return \INF;
         }
 
-        return -log(1 - $p) / $this->λ;
+        return -\log(1 - $p) / $this->λ;
     }
-    
+
     /**
      * Mean of the distribution
      *
@@ -129,7 +130,7 @@ class Exponential extends Continuous
      */
     public function median(): float
     {
-        return log(2) / $this->λ;
+        return \log(2) / $this->λ;
     }
 
     /**
@@ -155,6 +156,6 @@ class Exponential extends Continuous
      */
     public function variance(): float
     {
-        return 1 / ($this->λ**2);
+        return 1 / ($this->λ ** 2);
     }
 }

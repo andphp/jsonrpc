@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Probability\Distribution\Continuous;
 
 use MathPHP\Functions\Special;
@@ -15,7 +16,7 @@ class ChiSquared extends Continuous
      * k ∈ [1,∞)
      * @var array
      */
-    const PARAMETER_LIMITS = [
+    public const PARAMETER_LIMITS = [
         'k' => '[1,∞)',
     ];
 
@@ -24,7 +25,7 @@ class ChiSquared extends Continuous
      * x ∈ [0,∞)
      * @var array
      */
-    const SUPPORT_LIMITS = [
+    public const SUPPORT_LIMITS = [
         'x' => '[0,∞)',
     ];
 
@@ -61,11 +62,11 @@ class ChiSquared extends Continuous
         $k = $this->k;
 
         // Numerator
-        $x⁽ᵏ／²⁾⁻¹ = $x**(($k / 2) - 1);
-        $ℯ⁻⁽ˣ／²⁾  = exp(-($x / 2));
+        $x⁽ᵏ／²⁾⁻¹ = $x ** (($k / 2) - 1);
+        $ℯ⁻⁽ˣ／²⁾  = \exp(-($x / 2));
 
         // Denominator
-        $２ᵏ／²  = 2**($k / 2);
+        $２ᵏ／²  = 2 ** ($k / 2);
         $Γ⟮k／2⟯ = Special::Γ($k / 2);
 
         return ($x⁽ᵏ／²⁾⁻¹ * $ℯ⁻⁽ˣ／²⁾) / ($２ᵏ／² * $Γ⟮k／2⟯);
@@ -102,7 +103,7 @@ class ChiSquared extends Continuous
 
         return $γ⟮k／2、x／2⟯ / $Γ⟮k／2⟯;
     }
-    
+
     /**
      * Mean of the distribution
      *
@@ -127,21 +128,21 @@ class ChiSquared extends Continuous
     public function median(): float
     {
         $k          = $this->k;
-        $⟮1 − 2／9k⟯ = 1 - (2 /(9 * $k));
+        $⟮1 − 2／9k⟯ = 1 - (2 / (9 * $k));
 
-        return $k * $⟮1 − 2／9k⟯**3;
+        return $k * $⟮1 − 2／9k⟯ ** 3;
     }
 
     /**
      * Mode of the distribution
      *
-     * max(k - 2, 0)
+     * \max(k - 2, 0)
      *
      * @return float
      */
     public function mode(): float
     {
-        return max($this->k - 2, 0);
+        return \max($this->k - 2, 0);
     }
 
     /**

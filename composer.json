@@ -3,10 +3,10 @@
     "description": "ppgolang jsonrpcpp",
     "type": "library",
     "require": {
-        "hyperf/rpc": "~2.1.0",
-        "hyperf/json-rpc": "~2.1.0",
-        "hyperf/rpc-server": "~2.1.0",
-        "hyperf/rpc-client": "~2.1.0",
+        "hyperf/rpc": "~2.2.0",
+        "hyperf/json-rpc": "~2.2.0",
+        "hyperf/rpc-server": "~2.2.0",
+        "hyperf/rpc-client": "~2.2.0",
         "php": ">=7.3"
     },
     "autoload": {

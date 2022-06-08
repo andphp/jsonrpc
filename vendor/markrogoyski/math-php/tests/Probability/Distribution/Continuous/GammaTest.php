@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Continuous;
 
 use MathPHP\Probability\Distribution\Continuous\Gamma;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Continuous\Gamma;
 class GammaTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pdf
+     * @test         pdf
      * @dataProvider dataProviderForPdf
      * @param        float $x   x ∈ (0,1)
      * @param        float $k   shape parameter α > 0
@@ -22,7 +23,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         $pdf = $gamma->pdf($x);
 
         // Then
-        $this->assertEquals($expectedPdf, $pdf, '', 0.00000001);
+        $this->assertEqualsWithDelta($expectedPdf, $pdf, 0.00000001);
     }
 
     /**
@@ -56,7 +57,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        float $x   x ∈ (0,1)
      * @param        float $k   shape parameter α > 0
@@ -72,7 +73,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         $cdf = $gamma->cdf($x);
 
         // Then
-        $this->assertEquals($expectedCdf, $cdf, '', 0.000001);
+        $this->assertEqualsWithDelta($expectedCdf, $cdf, 0.000001);
     }
 
     /**
@@ -106,7 +107,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean returns the expected average
+     * @test         mean returns the expected average
      * @dataProvider dataProviderForMean
      * @param        float $k
      * @param        float $θ
@@ -121,7 +122,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         $mean = $gamma->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.0001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.0001);
     }
 
     /**
@@ -139,7 +140,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     median returns the expected approximation of the average
+     * @test         median returns the expected approximation of the average
      * @dataProvider dataProviderForMedian
      * @param        float $k
      * @param        float $θ
@@ -154,7 +155,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         $median = $gamma->median();
 
         // Then
-        $this->assertEquals($expectedApproximation, $median, '', 0.000001);
+        $this->assertEqualsWithDelta($expectedApproximation, $median, 0.000001);
     }
 
     /**
@@ -172,7 +173,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMode
      * @param        float $k
      * @param        float $θ
@@ -187,7 +188,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         $mode = $gamma->mode();
 
         // Then
-        $this->assertEquals($expected, $mode, '', 0.000001);
+        $this->assertEqualsWithDelta($expected, $mode, 0.000001);
     }
 
     /**
@@ -209,7 +210,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode is not a number if k < 1
+     * @test         mode is not a number if k < 1
      * @dataProvider dataProviderForModeNan
      * @param        float $k
      * @param        float $θ
@@ -240,7 +241,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        float $k
      * @param        float $θ
@@ -255,7 +256,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         $variance = $gamma->variance();
 
         // Then
-        $this->assertEquals($expected, $variance, '', 0.000001);
+        $this->assertEqualsWithDelta($expected, $variance, 0.000001);
     }
 
     /**

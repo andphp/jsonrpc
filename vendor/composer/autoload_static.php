@@ -4,32 +4,22 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
+class ComposerStaticInite3f2d2f381532c7cca18e8c3954f0698
 {
     public static $files = array (
         'bbeb7603826cb9296dde3ca1a840af47' => __DIR__ . '/..' . '/hyperf/utils/src/Functions.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        'fe1d4898277c26748a003292f432cd3b' => __DIR__ . '/..' . '/jetbrains/phpstorm-stubs/PhpStormStubsMap.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'p' => 
-        array (
-            'phpDocumentor\\Reflection\\' => 25,
-        ),
-        'W' => 
-        array (
-            'Webmozart\\Assert\\' => 17,
-        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -42,11 +32,6 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
             'Symfony\\Component\\String\\' => 25,
             'Symfony\\Component\\Console\\' => 26,
         ),
-        'R' => 
-        array (
-            'Roave\\Signature\\' => 16,
-            'Roave\\BetterReflection\\' => 23,
-        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
@@ -54,7 +39,6 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
             'Psr\\Http\\Message\\' => 17,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
-            'PhpParser\\' => 10,
         ),
         'M' => 
         array (
@@ -62,7 +46,6 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
         ),
         'L' => 
         array (
-            'Laminas\\ZendFrameworkBridge\\' => 28,
             'Laminas\\Stdlib\\' => 15,
             'Laminas\\Mime\\' => 13,
         ),
@@ -73,6 +56,7 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
             'Hyperf\\Rpc\\' => 11,
             'Hyperf\\RpcServer\\' => 17,
             'Hyperf\\RpcClient\\' => 17,
+            'Hyperf\\Macroable\\' => 17,
             'Hyperf\\LoadBalancer\\' => 20,
             'Hyperf\\JsonRpc\\' => 15,
             'Hyperf\\HttpServer\\' => 18,
@@ -82,6 +66,7 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
             'Hyperf\\Engine\\' => 14,
             'Hyperf\\Dispatcher\\' => 18,
             'Hyperf\\Contract\\' => 16,
+            'Hyperf\\Context\\' => 15,
         ),
         'F' => 
         array (
@@ -98,16 +83,6 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
     );
 
     public static $prefixDirsPsr4 = array (
-        'phpDocumentor\\Reflection\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-        ),
-        'Webmozart\\Assert\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/webmozart/assert/src',
-        ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
@@ -144,14 +119,6 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'Roave\\Signature\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/roave/signature/src',
-        ),
-        'Roave\\BetterReflection\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/roave/better-reflection/src',
-        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -173,17 +140,9 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'PhpParser\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
-        ),
         'MathPHP\\' => 
         array (
             0 => __DIR__ . '/..' . '/markrogoyski/math-php/src',
-        ),
-        'Laminas\\ZendFrameworkBridge\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
         ),
         'Laminas\\Stdlib\\' => 
         array (
@@ -212,6 +171,10 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
         'Hyperf\\RpcClient\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/rpc-client/src',
+        ),
+        'Hyperf\\Macroable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/macroable/src',
         ),
         'Hyperf\\LoadBalancer\\' => 
         array (
@@ -249,6 +212,10 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
         array (
             0 => __DIR__ . '/..' . '/hyperf/contract/src',
         ),
+        'Hyperf\\Context\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/context/src',
+        ),
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
@@ -268,6 +235,7 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
@@ -276,9 +244,9 @@ class ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd21a0a2c5d0f34142d1edbc7e61e1d39::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite3f2d2f381532c7cca18e8c3954f0698::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite3f2d2f381532c7cca18e8c3954f0698::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite3f2d2f381532c7cca18e8c3954f0698::$classMap;
 
         }, null, ClassLoader::class);
     }

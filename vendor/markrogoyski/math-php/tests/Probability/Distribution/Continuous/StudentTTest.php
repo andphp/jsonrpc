@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Continuous;
 
 use MathPHP\Probability\Distribution\Continuous\StudentT;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Continuous\StudentT;
 class StudentTTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pdf
+     * @test         pdf
      * @dataProvider dataProviderForPdf
      * @param        float $t
      * @param        float $ν
@@ -21,7 +22,7 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
         $pdf = $studentT->pdf($t);
 
         // Then
-        $this->assertEquals($expected, $pdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($expected, $pdf, 0.0000001);
     }
 
     /**
@@ -66,11 +67,130 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
             [4, 6, 0.004054578],
             [5, 6, 0.001220841],
             [10, 6, 1.651408e-05],
+
+            [-10, 10, 7.284686e-07],
+            [-5, 10, 0.0003960011],
+            [-2, 10, 0.06114577],
+            [-1, 10, 0.230362],
+            [0, 10, 0.3891084],
+            [1, 10, 0.230362],
+            [2, 10, 0.06114577],
+            [5, 10, 0.0003960011],
+            [10, 10, 7.284686e-07],
+
+            [-10, 20, 2.660085e-09],
+            [-5, 20, 7.898911e-05],
+            [-2, 20, 0.05808722],
+            [-1, 20, 0.2360456],
+            [0, 20, 0.3939886],
+            [1, 20, 0.2360456],
+            [2, 20, 0.05808722],
+            [5, 20, 7.898911e-05],
+            [-10, 20, 2.660085e-09],
+
+            [0, 50, 0.3969527],
+            [1, 50, 0.2395711],
+            [5, 50, 1.283547e-05],
+
+            [0, 100, 0.3979462],
+            [1, 100, 0.2407659],
+            [5, 100, 5.080058e-06],
+
+            [0, 200, 0.3984439],
+            [1, 200, 0.2413671],
+            [5, 200, 2.88097e-06],
+
+            [0, 250, 0.3985435],
+            [1, 250, 0.2414876],
+            [5, 250, 2.545035e-06],
+
+            [0, 300, 0.39861],
+            [1, 300, 0.241568],
+            [5, 300, 2.338036e-06],
+
+            [0, 301, 0.3986111],
+
+            [0, 302, 0.3986122],
+            [0, 303, 0.3986133],
+            [0, 305, 0.3986154],
+            [0, 310, 0.3986207],
+
+            [0, 320, 0.3986307],
+            [1, 320, 0.2415931],
+            [5, 320, 2.276028e-06],
+
+            [5, 320, 2.276028e-06],
+            [5, 325, 2.261896e-06],
+            [5, 330, 2.248256e-06],
+            [5, 331, 2.245584e-06],
+            [5, 332, 2.242931e-06],
+            [5, 333, 2.240297e-06],
+            [5, 334, 2.23768e-06],
+            [5, 335, 2.235082e-06],
+
+            [0, 341, 0.3986499],
+            [0, 351, 0.3986582],
+            [0, 361, 0.3986661],
+            [0, 371, 0.3986735],
+            [0, 381, 0.3986806],
+            [0, 400, 0.398693],
+
+            [0, 500, 0.3987429],
+            [1, 500, 0.241729],
+            [2, 500, 0.05417883],
+            [3, 500, 0.004569562],
+            [5, 500, 1.962337e-06],
+
+            [0, 1000, 0.3988426],
+            [1, 1000, 0.2418498],
+            [2, 1000, 0.05408517],
+            [3, 1000, 0.004500625],
+            [5, 1000, 1.712012e-06],
+
+            [0, 1200, 0.3988592],
+            [1, 1200, 0.2418699],
+            [2, 1200, 0.05406951],
+            [3, 1200, 0.004489151],
+            [5, 1200, 1.672771e-06],
+
+            [0, 1500, 0.3988758],
+            [1, 1500, 0.2418901],
+            [2, 1500, 0.05405383],
+            [3, 1500, 0.004477681],
+            [5, 1500, 1.634218e-06],
+
+            [5, 1000, 1.712012233e-06],
+            [1E9, 2, 1e-27],
         ];
     }
 
     /**
-     * @testCase     cdf
+     * @test Github issue 429 - pdf - produced incorrect value of 0
+     *
+     * R Reference:
+     *  > library(stats)
+     *  > v <- 341
+     *  > t <- 0
+     *  > dt(t, v)
+     *  [1] 0.3986499
+     */
+    public function testBugIssue429StudentTPdf()
+    {
+        // Given
+        $v = 341;
+        $studentT = new StudentT($v);
+
+        // When
+        $t = 0;
+        $pdf = $studentT->pdf($t);
+
+        // Then
+        $expected = 0.3986499;
+        $this->assertEqualsWithDelta($expected, $pdf, 0.001);
+    }
+
+    /**
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        float $t
      * @param        float $ν
@@ -85,7 +205,7 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
         $cdf = $studentT->cdf($t);
 
         // Then
-        $this->assertEquals($expected, $cdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($expected, $cdf, 0.0000001);
     }
 
     /**
@@ -135,11 +255,17 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
             [0.1, 2, 0.5352673],
             [2.9, 2, 0.9494099],
             [3.9, 6, 0.996008],
+            [\INF, 6, 1],
+            [-\INF, 6, 0],
+            [0, \INF, 0.5],
+            [1, \INF, 0.841344746],
+            [1, 5E5, 0.841344504097939],
+            [1.5E50, 1, 1],
         ];
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        float $ν
      * @param        float $μ
@@ -168,7 +294,7 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase mean is not a number when ν is less than or equal to 1
+     * @test     mean is not a number when ν is less than or equal to 1
      */
     public function testMeanNan()
     {
@@ -184,7 +310,7 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     median
+     * @test         median
      * @dataProvider dataProviderForMedianAndMode
      * @param        float $ν
      * @param        float $expected
@@ -202,7 +328,7 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMedianAndMode
      * @param        float $ν
      * @param        float $expected
@@ -233,7 +359,7 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        float $ν
      * @param        float $expected
@@ -261,12 +387,12 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
             [2, \INF],
             [3, 3],
             [4, 2],
-            [5, 5/3],
+            [5, 5 / 3],
         ];
     }
 
     /**
-     * @testCase     variance is not a number when ν ≤ 1
+     * @test         variance is not a number when ν ≤ 1
      * @dataProvider dataProviderForVarianceNan
      * @param        float $ν
      */
@@ -296,7 +422,7 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     inverse
+     * @test         inverse
      * @dataProvider dataProviderForInverse
      * @param        float $p
      * @param        float $ν
@@ -311,17 +437,45 @@ class StudentTTest extends \PHPUnit\Framework\TestCase
         $inverse = $studentT->inverse($p);
 
         // Then
-        $this->assertEquals($x, $inverse);
+        $this->assertEqualsWithDelta($x, $inverse, 0.00001);
     }
 
     /**
+     * Generated with R qt(c(p), ν)
      * @return array [p, ν, x]
      */
     public function dataProviderForInverse(): array
     {
         return [
-            [0.6, 1, 0.3249196962],
-            [0.6, 2, 0.2886751346],
+            [0.90, 1, 3.077684],
+            [0.90, 2, 1.885618],
+            [0.90, 3, 1.637744],
+            [0.90, 4, 1.533206],
+            [0.90, 5, 1.475884],
+            [0.90, 10, 1.372184],
+            [0.90, 20, 1.325341],
+            [0.90, 50, 1.298714],
+            [0.90, 100, 1.290075],
+            [0.95, 1, 6.313752],
+            [0.95, 2, 2.919986],
+            [0.95, 3, 2.353363],
+            [0.95, 4, 2.131847],
+            [0.95, 5, 2.015048],
+            [0.95, 10, 1.812461],
+            [0.95, 20, 1.724718],
+            [0.95, 50, 1.675905],
+            [0.95, 100, 1.660234],
+            [0.99, 1, 31.82052],
+            [0.99, 2, 6.964557],
+            [0.99, 3, 4.540703],
+            [0.99, 4, 3.746947],
+            [0.99, 5, 3.36493],
+            [0.99, 10, 2.763769],
+            [0.99, 20, 2.527977],
+            [0.99, 50, 2.403272],
+            [0.99, 100, 2.364217],
+            [0.6, 1, 0.3249197],
+            [0.6, 2, 0.2886751],
         ];
     }
 }

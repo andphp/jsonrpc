@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Continuous;
 
 use MathPHP\Probability\Distribution\Continuous\StandardNormal;
@@ -9,17 +10,17 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
     /** @var StandardNormal */
     private $standardNormal;
 
-    const μ = 0;
-    const σ = 1;
+    private const μ = 0;
+    private const σ = 1;
 
-    public function setUp()
+    public function setUp(): void
     {
         // Given
         $this->standardNormal = new StandardNormal();
     }
 
     /**
-     * @testCase     pdf
+     * @test         pdf
      * @dataProvider dataProviderForPdf
      * @param        float $z
      * @param        float $expected_pdf
@@ -30,11 +31,11 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
         $pdf = $this->standardNormal->pdf($z);
 
         // Then
-        $this->assertEquals($expected_pdf, $pdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($expected_pdf, $pdf, 0.0000001);
     }
 
     /**
-     * @testCase     pdf is the same as normal pdf with μ = 0 and σ = 1
+     * @test         pdf is the same as normal pdf with μ = 0 and σ = 1
      * @dataProvider dataProviderForPdf
      * @param        float $z
      */
@@ -48,7 +49,7 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
         $pdf = $this->standardNormal->pdf($z);
 
         // Then
-        $this->assertEquals($normal_pdf, $pdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($normal_pdf, $pdf, 0.0000001);
     }
 
     /**
@@ -91,7 +92,7 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        float $z
      * @param        float $expected_cdf
@@ -102,11 +103,11 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
         $cdf = $this->standardNormal->cdf($z);
 
         // Then
-        $this->assertEquals($expected_cdf, $cdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($expected_cdf, $cdf, 0.0000001);
     }
 
     /**
-     * @testCase     cdf is the same as normal cdf with μ = 0 and σ = 1
+     * @test         cdf is the same as normal cdf with μ = 0 and σ = 1
      * @dataProvider dataProviderForCdf
      * @param        float $z
      */
@@ -120,7 +121,7 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
         $cdf = $this->standardNormal->cdf($z);
 
         // Then
-        $this->assertEquals($normal_cdf, $cdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($normal_cdf, $cdf, 0.0000001);
     }
 
     /**
@@ -171,7 +172,7 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase mean
+     * @test mean
      */
     public function testMean()
     {
@@ -183,7 +184,7 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase mode
+     * @test mode
      */
     public function testMode()
     {
@@ -195,7 +196,7 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase variance
+     * @test variance
      */
     public function testVariance()
     {
@@ -207,7 +208,7 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     inverse
+     * @test         inverse
      * @dataProvider dataProviderForInverse
      * @param        float $target
      * @param        float $expected_inverse
@@ -218,7 +219,7 @@ class StandardNormalTest extends \PHPUnit\Framework\TestCase
         $inverse = $this->standardNormal->inverse($target);
 
         // Then
-        $this->assertEquals($expected_inverse, $inverse, '', 0.000001);
+        $this->assertEqualsWithDelta($expected_inverse, $inverse, 0.000001);
     }
 
     /**

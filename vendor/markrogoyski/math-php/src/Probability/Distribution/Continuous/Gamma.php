@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Probability\Distribution\Continuous;
 
 use MathPHP\Functions\Special;
@@ -16,7 +17,7 @@ class Gamma extends Continuous
      * θ ∈ (0,∞)
      * @var array
      */
-    const PARAMETER_LIMITS = [
+    public const PARAMETER_LIMITS = [
         'k' => '(0,∞)',
         'θ' => '(0,∞)',
     ];
@@ -26,7 +27,7 @@ class Gamma extends Continuous
      * x ∈ (0,∞)
      * @var array
      */
-    const SUPPORT_LIMITS = [
+    public const SUPPORT_LIMITS = [
         'x' => '(0,∞)',
     ];
 
@@ -67,11 +68,11 @@ class Gamma extends Continuous
         $θ = $this->θ;
 
         $Γ⟮k⟯   = Special::Γ($k);
-        $θᵏ    = $θ**$k;
+        $θᵏ    = $θ ** $k;
         $Γ⟮k⟯θᵏ = $Γ⟮k⟯ * $θᵏ;
 
-        $xᵏ⁻¹ = $x**($k - 1);
-        $e    = \M_E**(-$x / $θ);
+        $xᵏ⁻¹ = $x ** ($k - 1);
+        $e    = \M_E ** (-$x / $θ);
 
         return ($xᵏ⁻¹ * $e) / $Γ⟮k⟯θᵏ;
     }
@@ -155,6 +156,6 @@ class Gamma extends Continuous
      */
     public function variance(): float
     {
-        return $this->k * $this->θ**2;
+        return $this->k * $this->θ ** 2;
     }
 }

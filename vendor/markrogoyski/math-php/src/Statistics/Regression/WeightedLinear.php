@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Statistics\Regression;
 
 use MathPHP\Exception;
@@ -18,7 +19,8 @@ use MathPHP\Exception;
  */
 class WeightedLinear extends ParametricRegression
 {
-    use Models\LinearModel, Methods\WeightedLeastSquares;
+    use Models\LinearModel;
+    use Methods\WeightedLeastSquares;
 
     /**
      * Array of weights
@@ -40,9 +42,24 @@ class WeightedLinear extends ParametricRegression
      * Calculates the regression parameters.
      *
      * @throws Exception\MatrixException
+     * @throws Exception\IncorrectTypeException
+     * @throws Exception\MathException
      */
-    public function calculate()
+    public function calculate(): void
     {
         $this->parameters = $this->leastSquares($this->ys, $this->xs, $this->ws)->getColumn(0);
+    }
+
+    /**
+     * Evaluate the regression equation at x
+     * Uses the instance model's evaluateModel method.
+     *
+     * @param  float $x
+     *
+     * @return float
+     */
+    public function evaluate(float $x): float
+    {
+        return $this->evaluateModel($x, $this->parameters);
     }
 }

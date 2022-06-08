@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Discrete;
 
 use MathPHP\Probability\Distribution\Discrete\Hypergeometric;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Discrete\Hypergeometric;
 class HypergeometricTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pmf returns expected probability
+     * @test         pmf returns expected probability
      * @dataProvider dataProviderForPmf
      * @param  int   $N population size
      * @param  int   $K number of success states in the population
@@ -23,7 +24,7 @@ class HypergeometricTest extends \PHPUnit\Framework\TestCase
         $pmf = $hypergeometric->pmf($k);
 
         // Then
-        $this->assertEquals($expectedPmf, $pmf, '', 0.0000001);
+        $this->assertEqualsWithDelta($expectedPmf, $pmf, 0.0000001);
     }
 
     /**
@@ -45,7 +46,7 @@ class HypergeometricTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf returns expected probability
+     * @test         cdf returns expected probability
      * @dataProvider dataProviderForCdf
      * @param  int   $N population size
      * @param  int   $K number of success states in the population
@@ -62,7 +63,7 @@ class HypergeometricTest extends \PHPUnit\Framework\TestCase
         $cdf = $hypergeometric->cdf($k);
 
         // Then
-        $this->assertEquals($expectedCdf, $cdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($expectedCdf, $cdf, 0.0000001);
     }
 
     /**
@@ -82,7 +83,7 @@ class HypergeometricTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean returns expected average
+     * @test         mean returns expected average
      * @dataProvider dataProviderForMean
      * @param  int   $N population size
      * @param  int   $K number of success states in the population
@@ -98,7 +99,7 @@ class HypergeometricTest extends \PHPUnit\Framework\TestCase
         $mean = $hypergeometric->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.0000001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.0000001);
     }
 
     /**
@@ -116,7 +117,7 @@ class HypergeometricTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mode
+     * @test         mode
      * @dataProvider dataProviderForMode
      * @param  int   $N population size
      * @param  int   $K number of success states in the population
@@ -132,7 +133,7 @@ class HypergeometricTest extends \PHPUnit\Framework\TestCase
         $mode = $hypergeometric->mode();
 
         // Then
-        $this->assertEquals($expectedMode, $mode, '', 0.0000001);
+        $this->assertEqualsWithDelta($expectedMode, $mode, 0.0000001);
     }
 
     /**
@@ -149,7 +150,7 @@ class HypergeometricTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param  int   $N population size
      * @param  int   $K number of success states in the population
@@ -165,7 +166,7 @@ class HypergeometricTest extends \PHPUnit\Framework\TestCase
         $variance = $hypergeometric->variance();
 
         // Then
-        $this->assertEquals($σ², $variance, '', 0.0000001);
+        $this->assertEqualsWithDelta($σ², $variance, 0.0000001);
     }
 
     /**

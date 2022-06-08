@@ -1,4 +1,5 @@
 <?php
+
 namespace MathPHP\Tests\Probability\Distribution\Discrete;
 
 use MathPHP\Probability\Distribution\Discrete\Binomial;
@@ -6,7 +7,7 @@ use MathPHP\Probability\Distribution\Discrete\Binomial;
 class BinomialTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testCase     pmf
+     * @test         pmf
      * @dataProvider dataProviderForPmf
      * @param        int $n
      * @param        int $r
@@ -22,7 +23,7 @@ class BinomialTest extends \PHPUnit\Framework\TestCase
         $pdf = $binomial->pmf($r);
 
         // Then
-        $this->assertEquals($expectedPmf, $pdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($expectedPmf, $pdf, 0.0000001);
     }
 
     /**
@@ -55,7 +56,7 @@ class BinomialTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     cdf
+     * @test         cdf
      * @dataProvider dataProviderForCdf
      * @param        int $n
      * @param        int $r
@@ -71,7 +72,7 @@ class BinomialTest extends \PHPUnit\Framework\TestCase
         $cdf = $binomial->cdf($r);
 
         // Then
-        $this->assertEquals($expectedCdf, $cdf, '', 0.0000001);
+        $this->assertEqualsWithDelta($expectedCdf, $cdf, 0.0000001);
     }
 
     /**
@@ -104,7 +105,7 @@ class BinomialTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     mean
+     * @test         mean
      * @dataProvider dataProviderForMean
      * @param        int   $n
      * @param        float $p
@@ -119,7 +120,7 @@ class BinomialTest extends \PHPUnit\Framework\TestCase
         $mean = $binomial->mean();
 
         // Then
-        $this->assertEquals($μ, $mean, '', 0.000001);
+        $this->assertEqualsWithDelta($μ, $mean, 0.000001);
     }
 
     /**
@@ -138,7 +139,7 @@ class BinomialTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testCase     variance
+     * @test         variance
      * @dataProvider dataProviderForVariance
      * @param        int   $n
      * @param        float $p
@@ -153,7 +154,7 @@ class BinomialTest extends \PHPUnit\Framework\TestCase
         $variance = $binomial->variance();
 
         // Then
-        $this->assertEquals($σ², $variance, '', 0.000001);
+        $this->assertEqualsWithDelta($σ², $variance, 0.000001);
     }
 
     /**
