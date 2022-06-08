@@ -1,5 +1,5 @@
 {
-    "name": "bl/jsonrpc",
+    "name": "andphp/jsonrpc",
     "description": "ppgolang jsonrpcpp",
     "type": "library",
     "require": {
