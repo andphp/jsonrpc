@@ -5,18 +5,18 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '7134813c0584efc36c632ee1780619960ff4bcf4',
-        'name' => 'bl/jsonrpc',
+        'reference' => '8c4e1c656bc0a7f9bd31fbaea0f4bec39236b917',
+        'name' => 'andphp/jsonrpc',
         'dev' => true,
     ),
     'versions' => array(
-        'bl/jsonrpc' => array(
+        'andphp/jsonrpc' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '7134813c0584efc36c632ee1780619960ff4bcf4',
+            'reference' => '8c4e1c656bc0a7f9bd31fbaea0f4bec39236b917',
             'dev_requirement' => false,
         ),
         'doctrine/inflector' => array(
