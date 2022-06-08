@@ -32,6 +32,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class BlTcpServer extends Server
 {
+    
     /**
      * @var ResponseBuilder
      */
