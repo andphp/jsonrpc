@@ -20,7 +20,7 @@ class GoJsonEofPacker implements PackerInterface
      * @var string
      */
     protected $eof;
-
+//
     protected $eof_list = [
         'hyperf-json-rpc'=>"\r\n",
         'go-json-rpc'=>"\n",
@@ -41,7 +41,7 @@ class GoJsonEofPacker implements PackerInterface
         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
         return $data .$eof;
     }
-
+//
     public function unpack(string $data)
     {
         $data = rtrim($data, $this->eof);

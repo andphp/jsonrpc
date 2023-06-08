@@ -33,9 +33,10 @@ class CoreMiddleware extends \Hyperf\RpcServer\CoreMiddleware
 
     protected function handleFound(Dispatched $dispatched, ServerRequestInterface $request)
     {
+
         if ($dispatched->handler->callback instanceof Closure) {
             $response = call($dispatched->handler->callback);
-        } else {
+        // } else {
             [$controller, $action] = $this->prepareHandler($dispatched->handler->callback);
             $controllerInstance = $this->container->get($controller);
             if (! method_exists($controller, $action)) {

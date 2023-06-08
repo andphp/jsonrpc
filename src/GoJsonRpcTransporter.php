@@ -23,7 +23,7 @@ use Swoole\Coroutine\Client as SwooleClient;
 class GoJsonRpcTransporter implements TransporterInterface
 {
     use RecvTrait;
-
+//
     /**
      * @var null|LoadBalancerInterface
      */
@@ -83,7 +83,7 @@ class GoJsonRpcTransporter implements TransporterInterface
         }
         return $json_response;
     }
-
+//
     public function recv()
     {
         $client = $this->getClient();

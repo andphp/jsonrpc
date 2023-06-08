@@ -51,7 +51,7 @@ class ResponseBuilder
         $this->packer = $packer;
         $this->protocol = $protocol;
     }
-
+//
     public function buildErrorResponse(ServerRequestInterface $request, int $code, \Throwable $error = null): ResponseInterface
     {
         $body = new SwooleStream($this->formatErrorResponse($request, $code, $error));
@@ -73,7 +73,7 @@ class ResponseBuilder
 
     protected function formatResponse($response, ServerRequestInterface $request): string
     {
-        $response = $this->dataFormatter->formatResponse([$request->getAttribute('request_id'), $response,$request->getAttribute('protocol_type')]);
+        // $response = $this->dataFormatter->formatResponse([$request->getAttribute('request_id'), $response,$request->getAttribute('protocol_type')]);
         return $this->packer->pack($response);
     }
 
@@ -82,8 +82,8 @@ class ResponseBuilder
         [$code, $message] = $this->error($code, $error ? $error->getMessage() : null);
         $response = $this->dataFormatter->formatErrorResponse([$request->getAttribute('request_id'), $code, $message, $error,$request->getAttribute('protocol_type')]);
         return $this->packer->pack($response);
-    }
-
+    } 
+ //
     protected function error(int $code, ?string $message = null): array
     {
         $mapping = [

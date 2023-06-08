@@ -26,7 +26,7 @@ class GoDataFormatter implements DataFormatterInterface
     {
         $this->context = $context;
     }
-
+//
     /**
      * 格式化请求
      * @param array $data
@@ -52,7 +52,7 @@ class GoDataFormatter implements DataFormatterInterface
             'id'     => $id
         ];
     }
-
+//
     /**
      * 格式化正常响应
      * @param array $data
@@ -85,7 +85,7 @@ class GoDataFormatter implements DataFormatterInterface
      */
     public function formatErrorResponse($data)
     {
-
+//
         [
             $id,
             $code,

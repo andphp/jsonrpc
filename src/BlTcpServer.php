@@ -90,7 +90,7 @@ class BlTcpServer extends Server
             'protocol' => $this->protocol,
         ]);
     }
-
+//
     protected function isLengthCheck(): bool
     {
         return boolval($this->serverConfig['settings']['open_length_check'] ?? false);
@@ -118,7 +118,7 @@ class BlTcpServer extends Server
         $response = new Psr7Response();
         return $response->withAttribute('fd', $fd)->withAttribute('server', $server);
     }
-
+//
     protected function buildRequest(int $fd, int $reactorId, string $data): ServerRequestInterface
     {
         return $this->buildJsonRpcRequest($fd, $reactorId, $this->packer->unpack($data) ?? ['jsonrpc' => '2.0']);
@@ -149,7 +149,7 @@ class BlTcpServer extends Server
         $this->getContext()->setData($data['context'] ?? []);
         return $request;
     }
-
+//
     protected function getDefaultExceptionHandler(): array
     {
         return [
